@@ -18,7 +18,7 @@ const slides = [
     discount: '−20%',
     headline: ['Le temps,', 'symbole de', 'prestige'],
     description: 'Montres d\'exception sélectionnées par nos experts.\nUne alliance entre art et mécanique.',
-    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=80',
+    image: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner3.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjMucG5nIiwiaWF0IjoxNzc3MjU2MjA4LCJleHAiOjE4MDg3OTIyMDh9.hkYqO4oPAAvemxd7kKP1RAMSuxHGcbhZAUI5D6LyBcw',
     badge: 'Édition Limitée',
     cta: 'Découvrir les pièces',
     ctaSecondary: 'Notre sélection',
@@ -28,7 +28,7 @@ const slides = [
     discount: '−40%',
     headline: ['L\'art du cuir,', 'essence de', 'excellence'],
     description: 'Sacs, ceintures et accessoires en cuir pleine fleur.\nArtisanat français, offre exceptionnelle.',
-    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80',
+    image: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner5%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjUgKDEpLnBuZyIsImlhdCI6MTc3NzI1NjgyNSwiZXhwIjoxODA4NzkyODI1fQ.ljavxZd4Wottze_9-dk8WEzXi9-7zcgMEVHAQuNfCXk',
     badge: 'Flash Sale',
     cta: 'Saisir l\'occasion',
     ctaSecondary: 'En savoir plus',
@@ -52,7 +52,7 @@ export default function SpecialOffers() {
   const slide = slides[current];
 
   return (
-    <div className="relative overflow-hidden bg-[#0e0d0b] min-h-[600px] font-serif">
+    <div className="relative overflow-hidden bg-[#0e0d0b] min-h-[700px] font-serif">
       {/* Background images with crossfade */}
       <AnimatePresence>
         <motion.img

@@ -11,7 +11,7 @@ const newArrivals = [
     category: 'Collection Homme',
     price: '720 000',
     src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/malepage%20(2).PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL21hbGVwYWdlICgyKS5QTkciLCJpYXQiOjE3NzczMDAyMjMsImV4cCI6MTgwODgzNjIyM30.NABWxFTSQ1qGTiwfge_javTJukx4XBSwVeWOJ1ifLcs',
-    size: 'large',
+    size: 'small',
   },
   {
     id: 2,
@@ -42,15 +42,15 @@ const newArrivals = [
     name: 'Accessoires Maroquinerie',
     category: 'Accessoires Prestige',
     price: '280 000',
-    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/gallery%20(12).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2dhbGxlcnkgKDEyKS5qcGciLCJpYXQiOjE3NzczMDA5NTksImV4cCI6MTgwODgzNjk1OX0.KQ4rilM0fbOXRVIJTXRDkwo3aPRBIm4rTUW4jLNlk0w', // Nouvelle URL valide (fix 404)
-    size: 'large',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/gallery%20(5).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2dhbGxlcnkgKDUpLmpwZyIsImlhdCI6MTc3NzQyMzQxMiwiZXhwIjoxODA4OTU5NDEyfQ.OPVORdfJpJsScybrgE-VKHs0WU0bFxZ3JhpGw6nls-g',
+    size: 'small',
   },
-    {
+  {
     id: 6,
     name: 'Accessoires Maroquinerie',
     category: 'Accessoires Prestige',
     price: '280 000',
-    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/MB-Crea-pic%20(3).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL01CLUNyZWEtcGljICgzKS5qcGciLCJpYXQiOjE3NzczMDE4NDAsImV4cCI6MTgwODgzNzg0MH0.QSVSrCPnBoqzDBMJ3kZmL7gkc6x7JaFq2-VOcyzsQIk', // Nouvelle URL valide (fix 404)
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/gallery%20(8).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2dhbGxlcnkgKDgpLmpwZyIsImlhdCI6MTc3NzQyMzMxNiwiZXhwIjoxODA4OTU5MzE2fQ.Tqj78V3o_h0PMtMxJWcCHjdXm2PRr1YdtM20reL-HrM',
     size: 'small',
   },
 ];

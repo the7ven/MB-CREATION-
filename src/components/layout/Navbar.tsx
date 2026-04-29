@@ -11,7 +11,7 @@ const menuLinks = [
     label: 'Shop',
     href: '/shop',
     children: [
-      { label: "Men's", href: '/shop/mens' },
+      { label: "Men's", href: '/shop/men' },
       { label: "Women's", href: '/shop/womens' },
       { label: 'Kids', href: '/shop/kids' },
       { label: 'Trending', href: '/shop/trending' },
