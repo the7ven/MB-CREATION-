@@ -9,7 +9,7 @@ import HeroSlideContent from './HeroSlideContent';
 const slides = [
   { 
     id: 1, 
-    src: "https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner3.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjMucG5nIiwiaWF0IjoxNzc3MjU2MjA4LCJleHAiOjE4MDg3OTIyMDh9.hkYqO4oPAAvemxd7kKP1RAMSuxHGcbhZAUI5D6LyBcw", 
+    src: "https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/mb1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL21iMS5wbmciLCJpYXQiOjE3Nzc0MzEzNzUsImV4cCI6MTgwODk2NzM3NX0.DLUtM2Nf8n3kBV0QjAtx8sKAz7701TuMPrOFIWZ-ryU", 
     alt: "Costume de Luxe Homme MB-Creation",
     tagline: "L'art du sur-mesure",
     headline: "Incarnez la distinction absolue"
