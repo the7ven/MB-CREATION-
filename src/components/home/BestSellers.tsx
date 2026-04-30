@@ -173,10 +173,10 @@ export default function BestSellers() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl md:text-6xl italic text-stone-900 leading-[1] tracking-tighter"
+              className="text-4xl md:text-6xl italic text-stone-900 leading-[1] tracking-tighter font-cormorant "
             >
               Nos best{' '}
-              <span className="italic ">sellers</span>
+              <span className="italic text-[#D4AF37] underline underline-offset-8 decoration-[#D4AF37] decoration-2">sellers</span>
             </motion.h2>
           </div>
 
@@ -227,3 +227,4 @@ export default function BestSellers() {
     </section>
   );
 }
+

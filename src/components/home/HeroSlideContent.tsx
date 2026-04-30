@@ -15,7 +15,7 @@ export default function HeroSlideContent({ slide }: SlideContentProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} // Animation fluide et élégante
-      className="font-sans"
+      className="font-cormorant"
     >
       {/* Tagline : Or, Majuscules, Espacement large */}
       <span className="text-[#D4AF37] text-[10px] md:text-xs tracking-[0.5em] uppercase font-bold mb-4 block">
@@ -23,7 +23,7 @@ export default function HeroSlideContent({ slide }: SlideContentProps) {
       </span>
       
       {/* Headline : Imposant, Sombre, Italique Gras avec distinction */}
-      <h1 className="text-5xl md:text-8xl  text-stone-900 leading-[1] tracking-tighter mb-8">
+      <h1 className="text-5xl md:text-8xl  text-stone-900 leading-[1] tracking-tighter mb-8 font-cormorant">
         {slide.headline.split(' ').map((word, index) => (
           <span key={word + index} className={['distinction', 'prestige', 'excellence'].includes(word.replace(/[.,]/g, '')) ? 'italic' : ''}>
             {word}{' '}

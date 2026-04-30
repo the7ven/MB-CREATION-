@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { ShoppingBag, X, Heart, ArrowRight, ArrowUpRight } from 'lucide-react';
 
@@ -131,7 +131,6 @@ function HeroSlider() {
 
   return (
     <section className="relative h-[85vh] w-full overflow-hidden bg-black">
-      {/* Images avec fondu */}
       <AnimatePresence mode="wait">
         <motion.div
           key={slide.id}
@@ -165,8 +164,10 @@ function HeroSlider() {
       />
 
       {/* Gradient bas */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 z-10"
-        style={{ background: 'linear-gradient(to top, #000 0%, transparent 100%)' }} />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-48 z-10"
+        style={{ background: 'linear-gradient(to top, #000 0%, transparent 100%)' }}
+      />
 
       {/* Contenu centré */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
@@ -182,21 +183,24 @@ function HeroSlider() {
             {/* Ligne décorative */}
             <div className="flex items-center gap-4">
               <div className="h-px w-12 bg-[#D4AF37]/60" />
-              <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.7em] font-bold">
+              <span className="font-cormorant text-[#D4AF37] text-sm uppercase tracking-[0.7em] font-light">
                 {slide.subtitle}
               </span>
               <div className="h-px w-12 bg-[#D4AF37]/60" />
             </div>
 
-            <h1 className="text-white text-6xl md:text-[8rem] font-black uppercase italic tracking-[-0.02em] leading-none"
-              style={{ textShadow: '0 2px 40px rgba(0,0,0,0.5)' }}>
+            {/* Titre hero */}
+            <h1
+              className="font-cormorant text-white text-6xl md:text-[8rem] uppercase italic tracking-[-0.02em] leading-none"
+              style={{ textShadow: '0 2px 40px rgba(0,0,0,0.5)' }}
+            >
               {slide.title}
             </h1>
 
             <motion.a
               href="/shop/mens"
               whileHover={{ gap: '16px' }}
-              className="flex items-center gap-3 mt-4 text-white/70 text-[10px] uppercase tracking-[0.4em] font-light hover:text-[#D4AF37] transition-colors duration-300"
+              className="font-cormorant flex items-center gap-3 mt-4 text-white/70 text-sm uppercase tracking-[0.4em] font-light hover:text-[#D4AF37] transition-colors duration-300"
             >
               Découvrir la collection
               <ArrowRight size={13} strokeWidth={1.5} />
@@ -211,13 +215,15 @@ function HeroSlider() {
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
-            className={`transition-all duration-700 h-px ${current === idx ? 'w-16 bg-[#D4AF37]' : 'w-6 bg-white/25 hover:bg-white/50'}`}
+            className={`transition-all duration-700 h-px ${
+              current === idx ? 'w-16 bg-[#D4AF37]' : 'w-6 bg-white/25 hover:bg-white/50'
+            }`}
           />
         ))}
       </div>
 
       {/* Numéro slide */}
-      <div className="absolute bottom-10 right-10 z-20 hidden md:flex items-center gap-2 text-white/25 text-[10px] tracking-[0.4em] font-light">
+      <div className="font-cormorant absolute bottom-10 right-10 z-20 hidden md:flex items-center gap-2 text-white/25 text-sm tracking-[0.4em] font-light">
         <span className="text-white/60">0{current + 1}</span>
         <span>/</span>
         <span>0{heroSlides.length}</span>
@@ -265,7 +271,6 @@ function ProductCard({
           style={{ filter: 'brightness(0.97) sepia(0.06)' }}
         />
 
-        {/* Overlay fondu */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-700" />
 
         {/* Wishlist */}
@@ -284,31 +289,32 @@ function ProductCard({
         <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
           <button
             onClick={() => onOpen(product)}
-            className="w-full py-4 bg-white text-black text-[9px] uppercase tracking-[0.4em] font-black flex items-center justify-center gap-3 hover:bg-[#D4AF37] transition-colors duration-300"
+            className="font-cormorant w-full py-4 bg-white text-black text-sm uppercase tracking-[0.4em] font-light flex items-center justify-center gap-3 hover:bg-[#D4AF37] transition-colors duration-300"
           >
-            <ArrowUpRight size={13} strokeWidth={2} />
+            <ArrowUpRight size={13} strokeWidth={1.5} />
             Aperçu rapide
           </button>
         </div>
       </div>
 
       {/* Infos */}
-      <div className="flex flex-col items-center text-center gap-2 px-2">
-        <span className="text-[9px] uppercase tracking-[0.45em] text-[#D4AF37] font-bold">
+      <div className="font-cormorant flex flex-col items-center text-center gap-2 px-2">
+        <span className="text-sm uppercase tracking-[0.45em] text-[#D4AF37] font-light">
           {product.category}
         </span>
-        <h3 className="text-sm font-black uppercase tracking-widest text-stone-900 leading-tight">
+        <h3 className="text-xl font-light uppercase tracking-widest text-stone-900 leading-tight">
           {product.name}
         </h3>
-        <p className="text-stone-400 text-sm font-light">
-          {product.price} <span className="text-[10px] tracking-widest">FCFA</span>
+        <p className="text-stone-400 text-lg font-light">
+          {product.price}{' '}
+          <span className="text-sm tracking-widest">FCFA</span>
         </p>
         <button
           onClick={() => onOpen(product)}
-          className="mt-3 flex items-center gap-2 text-[9px] uppercase tracking-[0.35em] font-bold text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300"
+          className="mt-3 flex items-center gap-2 text-sm uppercase tracking-[0.35em] font-light text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300"
         >
           Détails & Achat
-          <ArrowRight size={11} strokeWidth={2} />
+          <ArrowRight size={11} strokeWidth={1.5} />
         </button>
       </div>
     </motion.article>
@@ -356,7 +362,7 @@ function ProductModal({
           {/* Fermer */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 z-50 w-10 h-10 flex items-center justify-center bg-stone-100 hover:bg-stone-900 hover:text-white transition-all duration-300 group"
+            className="absolute top-5 right-5 z-50 w-10 h-10 flex items-center justify-center bg-stone-100 hover:bg-stone-900 hover:text-white transition-all duration-300"
           >
             <X size={18} strokeWidth={1.5} />
           </button>
@@ -375,11 +381,7 @@ function ProductModal({
                   style={{ width: 56, height: 80, minWidth: 56 }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={img} alt="" className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
@@ -400,38 +402,37 @@ function ProductModal({
           </div>
 
           {/* DROITE — Infos */}
-          <div className="w-full md:w-[42%] p-10 md:p-14 flex flex-col justify-between bg-white">
+          <div className="font-cormorant w-full md:w-[42%] p-10 md:p-14 flex flex-col justify-between bg-white">
             <div>
               {/* Collection */}
               <div className="flex items-center gap-3 mb-8">
                 <div className="h-px w-8 bg-[#D4AF37]" />
-                <span className="text-[9px] uppercase tracking-[0.55em] text-[#D4AF37] font-bold">
+                <span className="text-sm uppercase tracking-[0.55em] text-[#D4AF37] font-light">
                   Collection {product.collection}
                 </span>
               </div>
 
               {/* Nom */}
-              <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-black leading-none mb-4">
+              <h2 className="text-3xl md:text-4xl font-light uppercase italic tracking-tight text-black leading-none mb-4">
                 {product.name}
               </h2>
 
               {/* Prix */}
               <p className="text-2xl font-light text-stone-800 mb-6">
                 {product.price}{' '}
-                <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">FCFA</span>
+                <span className="text-sm font-light uppercase tracking-widest text-stone-400">FCFA</span>
               </p>
 
-              {/* Séparateur */}
               <div className="h-px bg-stone-100 mb-6" />
 
               {/* Description */}
-              <p className="text-stone-500 text-sm leading-relaxed font-light mb-10">
+              <p className="text-stone-500 text-base leading-relaxed font-light mb-10">
                 {product.description}
               </p>
 
               {/* Tailles */}
               <div className="mb-8">
-                <p className="text-[9px] uppercase tracking-[0.45em] font-black text-stone-400 mb-4">
+                <p className="text-sm uppercase tracking-[0.45em] font-light text-stone-400 mb-4">
                   Taille
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -439,7 +440,7 @@ function ProductModal({
                     <button
                       key={s}
                       onClick={() => setSize(s)}
-                      className={`w-11 h-11 text-[10px] font-bold transition-all duration-200 border ${
+                      className={`w-11 h-11 text-sm font-light transition-all duration-200 border ${
                         size === s
                           ? 'bg-stone-900 text-white border-stone-900'
                           : 'bg-white text-stone-700 border-stone-200 hover:border-stone-400'
@@ -454,11 +455,11 @@ function ProductModal({
 
             {/* CTA */}
             <div className="flex flex-col gap-4">
-              <button className="w-full py-5 bg-stone-900 text-white text-[9px] uppercase tracking-[0.45em] font-black hover:bg-[#D4AF37] hover:text-black transition-all duration-500 flex items-center justify-center gap-4">
+              <button className="w-full py-5 bg-stone-900 text-white text-sm uppercase tracking-[0.45em] font-light hover:bg-[#D4AF37] hover:text-black transition-all duration-500 flex items-center justify-center gap-4">
                 <ShoppingBag size={15} strokeWidth={1.5} />
                 Ajouter au panier
               </button>
-              <p className="text-center text-[9px] uppercase tracking-widest text-stone-300 font-medium">
+              <p className="text-center text-sm uppercase tracking-widest text-stone-300 font-light">
                 Livraison offerte à Abidjan sous 24/48h
               </p>
             </div>
@@ -492,23 +493,19 @@ export default function MenPage() {
     setVisibleCount(LOAD_MORE_STEP);
   };
 
-  const filtered = activeFilter === 'all'
-    ? menProducts
-    : menProducts.filter(p => p.collection === activeFilter);
+  const filtered =
+    activeFilter === 'all' ? menProducts : menProducts.filter(p => p.collection === activeFilter);
 
-  // Mode "Tous" : load more
   const loadMoreProducts = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
   const handleLoadMore = () => setVisibleCount(v => v + LOAD_MORE_STEP);
 
-  // Mode collection : pagination numerotee
   const totalPages = Math.ceil(filtered.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = filtered.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
 
-  // Produits affiches selon le mode actif
   const displayedProducts = isAllFilter ? loadMoreProducts : paginatedProducts;
 
   const handlePageChange = (page: number) => {
@@ -519,9 +516,8 @@ export default function MenPage() {
   };
 
   return (
-    <main className="bg-white min-h-screen font-sans antialiased">
+    <main className="bg-white min-h-screen antialiased">
 
-      {/* HERO */}
       <HeroSlider />
 
       <div className="max-w-[1500px] mx-auto px-6 md:px-14">
@@ -529,7 +525,6 @@ export default function MenPage() {
         {/* SECTION HEADER */}
         <div ref={headerRef} className="pt-24 pb-0 border-b border-stone-100">
 
-          {/* Ligne haute : titre + filtres */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10">
             <div className="overflow-hidden">
               <AnimatePresence mode="wait">
@@ -540,10 +535,12 @@ export default function MenPage() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-4">
+                  {/* Tagline */}
+                  <span className="font-cormorant text-[#D4AF37] text-sm uppercase tracking-[0.6em] font-light block mb-4">
                     {collectionDescriptions[activeFilter].tagline}
                   </span>
-                  <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter text-black leading-none">
+                  {/* Titre collection */}
+                  <h2 className="font-cormorant text-4xl md:text-6xl font-light italic tracking-tight text-black leading-none">
                     {collectionDescriptions[activeFilter].title}
                   </h2>
                 </motion.div>
@@ -558,14 +555,14 @@ export default function MenPage() {
               className="flex flex-wrap gap-x-10 gap-y-4 shrink-0"
             >
               {filters.map(f => (
-                <button
-                  key={f.id}
-                  onClick={() => handleFilterChange(f.id)}
-                  className="relative py-1 group"
-                >
-                  <span className={`text-[9px] uppercase tracking-[0.45em] font-black transition-colors duration-300 ${
-                    activeFilter === f.id ? 'text-stone-900' : 'text-stone-300 group-hover:text-stone-600'
-                  }`}>
+                <button key={f.id} onClick={() => handleFilterChange(f.id)} className="relative py-1 group">
+                  <span
+                    className={`font-cormorant text-sm uppercase tracking-[0.45em] font-light transition-colors duration-300 ${
+                      activeFilter === f.id
+                        ? 'text-stone-900'
+                        : 'text-stone-300 group-hover:text-stone-600'
+                    }`}
+                  >
                     {f.label}
                   </span>
                   {activeFilter === f.id && (
@@ -589,14 +586,13 @@ export default function MenPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-stone-400 text-sm font-light leading-relaxed tracking-wide"
+                  className="font-cormorant text-stone-400 text-lg font-light leading-relaxed tracking-wide"
                 >
                   {collectionDescriptions[activeFilter].description}
                 </motion.p>
               </AnimatePresence>
             </div>
 
-            {/* Compteur résultats */}
             <AnimatePresence mode="wait">
               <motion.span
                 key={activeFilter + '-count'}
@@ -604,7 +600,7 @@ export default function MenPage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="text-[9px] uppercase tracking-[0.4em] text-stone-300 font-bold shrink-0"
+                className="font-cormorant text-sm uppercase tracking-[0.4em] text-stone-400 font-light shrink-0"
               >
                 {filtered.length} pièce{filtered.length > 1 ? 's' : ''}
               </motion.span>
@@ -635,22 +631,20 @@ export default function MenPage() {
           </AnimatePresence>
         </div>
 
-        {/* BAS DE GRILLE : Load More (Tous) ou Pagination (Collections) */}
+        {/* BAS DE GRILLE */}
         <div className="pb-32">
 
-          {/* MODE "TOUS" : bouton Voir plus */}
+          {/* Load More */}
           {isAllFilter && hasMore && (
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex flex-col items-center gap-6 border-t border-stone-100 pt-12"
             >
-              {/* Compteur */}
-              <span className="text-[9px] uppercase tracking-[0.4em] text-stone-300 font-bold">
-                {visibleCount} sur {filtered.length} pieces
+              <span className="font-cormorant text-sm uppercase tracking-[0.4em] text-stone-300 font-light">
+                {visibleCount} sur {filtered.length} pièces
               </span>
 
-              {/* Barre de progression */}
               <div className="w-48 h-px bg-stone-100 relative overflow-hidden">
                 <motion.div
                   className="absolute left-0 top-0 h-full bg-[#D4AF37]"
@@ -660,10 +654,9 @@ export default function MenPage() {
                 />
               </div>
 
-              {/* Bouton */}
               <button
                 onClick={handleLoadMore}
-                className="group flex items-center gap-4 px-14 py-5 border border-stone-200 text-stone-900 text-[9px] uppercase tracking-[0.45em] font-black hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-500"
+                className="font-cormorant group flex items-center gap-4 px-14 py-5 border border-stone-200 text-stone-900 text-sm uppercase tracking-[0.45em] font-light hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-500"
               >
                 Voir plus
                 <span className="text-stone-300 group-hover:text-white/50 transition-colors font-light">
@@ -673,7 +666,7 @@ export default function MenPage() {
             </motion.div>
           )}
 
-          {/* Message fin de liste (Tous) */}
+          {/* Fin de liste */}
           {isAllFilter && !hasMore && filtered.length > LOAD_MORE_STEP && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -681,17 +674,17 @@ export default function MenPage() {
               className="flex flex-col items-center gap-3 border-t border-stone-100 pt-12"
             >
               <div className="h-px w-12 bg-[#D4AF37]" />
-              <span className="text-[9px] uppercase tracking-[0.45em] text-stone-300 font-bold">
+              <span className="font-cormorant text-sm uppercase tracking-[0.45em] text-stone-300 font-light">
                 Toute la collection
               </span>
             </motion.div>
           )}
 
-          {/* MODE COLLECTION : pagination numerotee */}
+          {/* Pagination numérotée */}
           {!isAllFilter && totalPages > 1 && (
             <div className="flex items-center justify-between border-t border-stone-100 pt-10">
 
-              <span className="text-[9px] uppercase tracking-[0.4em] text-stone-300 font-bold">
+              <span className="font-cormorant text-sm uppercase tracking-[0.4em] text-stone-300 font-light">
                 Page {currentPage} / {totalPages}
               </span>
 
@@ -699,18 +692,24 @@ export default function MenPage() {
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="w-10 h-10 flex items-center justify-center border border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed text-xs"
+                  className="font-cormorant w-10 h-10 flex items-center justify-center border border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed text-base"
                 >
                   ←
                 </button>
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
-                  const isVisible = page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
+                  const isVisible =
+                    page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
                   const showEllipsisBefore = page === currentPage - 2 && currentPage > 3;
-                  const showEllipsisAfter = page === currentPage + 2 && currentPage < totalPages - 2;
+                  const showEllipsisAfter =
+                    page === currentPage + 2 && currentPage < totalPages - 2;
 
                   if (showEllipsisBefore || showEllipsisAfter) {
-                    return <span key={`e-${page}`} className="text-stone-300 text-xs px-1">···</span>;
+                    return (
+                      <span key={`e-${page}`} className="font-cormorant text-stone-300 text-base px-1">
+                        ···
+                      </span>
+                    );
                   }
                   if (!isVisible) return null;
 
@@ -718,7 +717,7 @@ export default function MenPage() {
                     <button
                       key={page}
                       onClick={() => handlePageChange(page)}
-                      className={`w-10 h-10 flex items-center justify-center text-[10px] font-black tracking-wider transition-all duration-300 border ${
+                      className={`font-cormorant w-10 h-10 flex items-center justify-center text-sm font-light tracking-wider transition-all duration-300 border ${
                         currentPage === page
                           ? 'bg-stone-900 text-white border-stone-900'
                           : 'border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900'
@@ -732,7 +731,7 @@ export default function MenPage() {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="w-10 h-10 flex items-center justify-center border border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed text-xs"
+                  className="font-cormorant w-10 h-10 flex items-center justify-center border border-stone-200 text-stone-400 hover:border-stone-900 hover:text-stone-900 transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed text-base"
                 >
                   →
                 </button>
@@ -747,7 +746,7 @@ export default function MenPage() {
                     transition={{ duration: 0.4, ease: 'easeInOut' }}
                   />
                 </div>
-                <span className="text-[9px] uppercase tracking-[0.3em] text-stone-300 font-bold">
+                <span className="font-cormorant text-sm uppercase tracking-[0.3em] text-stone-300 font-light">
                   {Math.round((currentPage / totalPages) * 100)}%
                 </span>
               </div>

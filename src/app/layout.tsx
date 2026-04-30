@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Lexend } from "next/font/google"; // Importation de Lexend
-import Navbar from "@/components/layout/Navbar"; // Ton nouveau composant
-import Footer from "@/components/layout/Footer"; // Ton nouveau composant
+import { Cormorant_Garamond } from "next/font/google"; // Uniquement Cormorant
+import Navbar from "@/components/layout/Navbar"; 
+import Footer from "@/components/layout/Footer"; 
 import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
 
-// Configuration de la police Lexend
-const lexend = Lexend({
+// Configuration de Cormorant Garamond comme police principale
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"], // Les graisses nécessaires
-  variable: "--font-lexend", // La variable CSS pour Tailwind
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
 });
 
 export const metadata: Metadata = {
   title: "MB-Creation",
-  description: "L'élégance à l'état pur. Fabriqué pour l elite.",
+  description: "L'élégance à l'état pur. Fabriqué pour l'élite.",
 };
 
 export default function RootLayout({
@@ -23,11 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${lexend.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans bg-stone-50 text-stone-900">
+    <html lang="fr" className={`${cormorant.variable} h-full antialiased`}>
+      {/* On applique font-cormorant ici pour qu'il soit partout par défaut */}
+      <body className="min-h-full flex flex-col font-cormorant bg-stone-50 text-stone-900">
         <CartProvider>
           <Navbar />
-          {/* On ajoute une marge en haut pour compenser la navbar fixe */}
           <main className="flex-1 pt-20">
             {children}
           </main>

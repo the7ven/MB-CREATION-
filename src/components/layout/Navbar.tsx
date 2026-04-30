@@ -46,7 +46,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 w-full z-50 bg-stone-50/90 backdrop-blur-sm text-stone-900 border-b border-stone-200 font-sans antialiased">
+      <header className="fixed top-0 w-full z-50 bg-stone-50/90 backdrop-blur-sm text-stone-900 border-b border-stone-200 font-cormorant antialiased">
         <nav className="relative max-w-[1920px] mx-auto px-6 h-20 flex items-center justify-between">
 
           {/* --- SECTION GAUCHE (Desktop) --- */}

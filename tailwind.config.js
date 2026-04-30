@@ -17,7 +17,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-lexend)', 'sans-serif'],
+        sans: ['var(--font-cormorant)', 'serif'],
       },
     },
   },

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0e0d0b] text-[#f5f0e8] font-sans pt-20 pb-10 border-t border-[#D4AF37]/20">
+    <footer className="bg-[#0e0d0b] text-[#f5f0e8] font-cormorant pt-20 pb-10 border-t border-[#D4AF37]/20">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16">
         
         {/* --- SECTION HAUTE : GRILLE --- */}
@@ -12,25 +12,25 @@ export default function Footer() {
           {/* Colonne 1 : La Maison */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-extrabold uppercase italic tracking-tighter text-white">
+              <h2 className="text-3xl font-extrabold uppercase italic tracking-tighter text-white">
                 MB<span className="text-[#D4AF37]">-</span>CREATION
               </h2>
-              <p className="text-[#D4AF37]/60 text-[10px] tracking-[0.5em] uppercase mt-2">
+              <p className="text-[#D4AF37]/60 text-[13px] tracking-[0.5em] uppercase mt-2">
                 Haute Couture & Prestige
               </p>
             </div>
-            <p className="text-white/40 text-sm leading-relaxed font-light max-w-xs">
+            <p className="text-white text-lg leading-relaxed font-light max-w-xs">
               L'excellence du savoir-faire artisanal au service de l'élégance contemporaine. Chaque pièce est une œuvre unique conçue pour l'élite.
             </p>
           </div>
 
           {/* Colonne 2 : Collections */}
           <div>
-            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.2em] font-bold mb-8">Collections</h3>
+            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">Collections</h3>
             <ul className="space-y-4">
               {['Prêt-à-porter', 'Robes de soirée', 'Maroquinerie', 'Accessoires', 'Éditions limitées', 'Sur-mesure'].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-white/50 hover:text-[#D4AF37] text-sm transition-colors duration-300 font-light">
+                  <Link href="#" className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
                     {item}
                   </Link>
                 </li>
@@ -40,11 +40,11 @@ export default function Footer() {
 
           {/* Colonne 3 : Services */}
           <div>
-            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.2em] font-bold mb-8">La Maison</h3>
+            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">La Maison</h3>
             <ul className="space-y-4">
               {['Notre histoire', "L'atelier", 'Engagements', 'Presse', 'Carrières', 'Contact'].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-white/50 hover:text-[#D4AF37] text-sm transition-colors duration-300 font-light">
+                  <Link href="#" className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
                     {item}
                   </Link>
                 </li>
@@ -54,15 +54,15 @@ export default function Footer() {
 
           {/* Colonne 4 : Newsletter */}
           <div className="space-y-6">
-            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.2em] font-bold mb-2">Lettres Précieuses</h3>
-            <p className="text-white/40 text-sm font-light italic">
+            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-2">Lettres Précieuses</h3>
+            <p className="text-white/40 text-lg font-light italic">
               Recevez en avant-première nos nouvelles collections et offres exclusives.
             </p>
             <div className="flex flex-col space-y-4">
               <input 
                 type="email" 
                 placeholder="Votre adresse e-mail" 
-                className="bg-transparent border-b border-white/10 py-3 text-sm focus:border-[#D4AF37] outline-none transition-colors text-white placeholder:text-white/20"
+                className="bg-transparent border-b border-white/10 py-3 text-lg focus:border-[#D4AF37] outline-none transition-colors text-white placeholder:text-white/50"
               />
               <button className="bg-[#D4AF37] text-black text-[10px] uppercase tracking-[0.3em] font-black py-4 hover:bg-white transition-colors duration-500">
                 S'inscrire
