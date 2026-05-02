@@ -9,34 +9,55 @@ import NewArrivals from "@/components/home/NewArrivals";
 import SpecialOffers from "@/components/home/SpecialOffers";
 
 export default function Home() {
-  const [hasEntered, setHasEntered] = useState(false);
+  // Par défaut, on ne sait pas encore si on doit afficher le splash
+  const [hasEntered, setHasEntered] = useState(true); // On met true par défaut pour éviter un flash noir
+  const [showSplash, setShowSplash] = useState(false);
   const [imageReady, setImageReady] = useState(false);
 
-  // Précharge l'image avant de lancer l'animation
   useEffect(() => {
-    const img = new window.Image();
-    img.src = "/enterpic.JPEG";
-    img.onload = () => setImageReady(true);
-    img.onerror = () => setImageReady(true); // fallback si erreur
+    // 1. Vérifier si l'utilisateur est déjà entré durant cette session
+    const alreadyEntered = sessionStorage.getItem("mb_creation_entered");
+
+    if (!alreadyEntered) {
+      setHasEntered(false); // Si jamais entré, on cache le contenu
+      setShowSplash(true); // Et on prépare le splash
+
+      // Précharge l'image uniquement si on doit l'afficher
+      const img = new window.Image();
+      img.src = "/enterpic.JPEG";
+      img.onload = () => setImageReady(true);
+      img.onerror = () => setImageReady(true);
+    } else {
+      setHasEntered(true); // Déjà entré, on affiche direct le site
+      setShowSplash(false);
+    }
   }, []);
 
+  const handleManualEnter = () => {
+    sessionStorage.setItem("mb_creation_entered", "true"); // On enregistre l'entrée
+    setHasEntered(true);
+    setShowSplash(false);
+  };
+
   return (
-    <main className="relative flex flex-col w-full bg-white min-h-screen overflow-x-hidden">
-      {/* SPLASH SCREEN */}
+    <main className="relative flex flex-col w-full bg-white min-h-screen overflow-x-hidden font-cormorant">
+      {/* SPLASH SCREEN - Ne s'affiche QUE si showSplash est true */}
       <AnimatePresence>
-        {!hasEntered && (
+        {showSplash && !hasEntered && (
           <motion.div
             key="splash"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 3.0, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[999] flex flex-col items-end justify-end overflow-hidden bg-black"
+            exit={{ opacity: 0, y: -100 }} // Le rideau remonte au lieu de juste disparaître
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[999] flex flex-col items-center justify-center overflow-hidden bg-black"
           >
-            {/* IMAGE — entre depuis le bas dès que chargée */}
             <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: imageReady ? 0 : "100%" }}
-              transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ y: "20%", opacity: 0 }}
+              animate={{
+                y: imageReady ? 0 : "20%",
+                opacity: imageReady ? 1 : 0,
+              }}
+              transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 flex items-center justify-center"
             >
               <Image
@@ -45,20 +66,17 @@ export default function Home() {
                 width={900}
                 height={600}
                 priority
-                unoptimized
                 className="mx-auto"
               />
-              {/* Léger dégradé bas pour lisibilité du bouton */}
               <div
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 40%, transparent 70%)",
+                    "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)",
                 }}
               />
             </motion.div>
 
-            {/* BOUTON — key force le remount quand imageReady change */}
             <motion.div
               key={String(imageReady)}
               initial={{ opacity: 0, y: 24 }}
@@ -68,37 +86,38 @@ export default function Home() {
                 delay: imageReady ? 1.6 : 0,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative z-10 w-full flex flex-col items-center gap-8 pb-50 px-6"
+              /* On le place en bas avec 'absolute' et on définit l'espace avec 'pb' */
+              className="absolute bottom-10 left-0 right-0 z-20 flex flex-col items-center pb-16 md:pb-24 px-6"
             >
-              <motion.button
-                onClick={() => setHasEntered(true)}
-                whileHover={{ letterSpacing: "0.55em" }}
-                whileTap={{ scale: 0.97 }}
-                className="px-14 py-5 border border-[#D4AF37] text-[#D4AF37] text-[10px] uppercase tracking-[0.45em] font-black bg-transparent hover:bg-[#D4AF37] hover:text-black transition-all duration-500"
+              <button
+                onClick={handleManualEnter}
+                className="px-14 py-5 border border-[#D4AF37] text-[#D4AF37] text-[10px] uppercase tracking-[0.45em] font-black bg-black/20 backdrop-blur-sm hover:bg-[#D4AF37] hover:text-black transition-all duration-500"
               >
                 Entrer
-              </motion.button>
+              </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* CONTENU SITE */}
-      <AnimatePresence>
-        {hasEntered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="flex flex-col w-full"
-          >
-            <HeroSlider />
-            <BestSellers />
-            <NewArrivals />
-            <SpecialOffers />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* On n'utilise AnimatePresence ici que pour l'apparition initiale */}
+      <div
+        className={`flex flex-col w-full ${!hasEntered ? "hidden" : "block"}`}
+      >
+        <div id="hero">
+          <HeroSlider />
+        </div>
+        <div id="bestsellers">
+          <BestSellers />
+        </div>
+        <div id="newarrivals">
+          <NewArrivals />
+        </div>
+        <div id="specialoffers">
+          <SpecialOffers />
+        </div>
+      </div>
     </main>
   );
 }
