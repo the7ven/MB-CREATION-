@@ -258,7 +258,7 @@ export default function AboutPage() {
               <div className="absolute -top-4 -left-4 w-full h-full border border-[#D4AF37]/20 z-0" />
               <div className="relative z-10 aspect-[3/4] overflow-hidden bg-stone-100">
                 <Image
-                  src="https://images.unsplash.com/photo-1593032465175-481ac7f402a1?q=80&w=1200"
+                  src="https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/shop3.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL3Nob3AzLnBuZyIsImlhdCI6MTc3Nzc3OTIxNiwiZXhwIjoxODA5MzE1MjE2fQ.CrPctU1BOx_gxxhiHsDfCH1SHmddVOpQdn6OsizNaqc"
                   alt="Manuella Bufang"
                   fill
                   unoptimized

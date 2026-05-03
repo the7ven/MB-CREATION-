@@ -1,11 +1,19 @@
 import { Search, Menu } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
-// Le Logo MB-Creation (Version Texte de Luxe)
+// Le Logo MB-Creation 
 export const Logo = () => (
-  <Link href="/" className="text-2xl font-extrabold uppercase italic tracking-tighter text-stone-900 hover:text-[#D4AF37] transition-colors">
-    MB<span className="text-[#D4AF37]">-</span>CREATION
-  </Link>
+ <Link href="/">
+  <Image
+    src="/logo.JPEG"      
+    alt="MB-Creation"
+    width={50}          
+    height={50}
+    className="object-contain rounded-full"
+    priority
+  />
+</Link>
 );
 
 // Composant pour l'icône de recherche (Style Or)
