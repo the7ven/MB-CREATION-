@@ -55,7 +55,7 @@ export default function Navbar() {
               Contact us
             </Link>
             <div className="h-6 w-px bg-stone-300"></div>
-            <Link href="/#hero" className="hover:text-[#D4AF37] transition-colors">
+            <Link href="/home" className="hover:text-[#D4AF37] transition-colors">
              Home
             </Link>
           </div>
