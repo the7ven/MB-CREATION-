@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { ShoppingBag, Heart, X, ArrowRight, ArrowUpRight, TrendingUp, Star, Flame, Zap } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 // ============================================================
 // DONNÉES
@@ -593,6 +594,7 @@ function CategorySection({
 function ProductModal({ product, onClose }: { product: Product | null; onClose: () => void }) {
   const [size, setSize] = useState('');
   const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
 
   useEffect(() => { setSize(''); setAdded(false); }, [product]);
   useEffect(() => {
@@ -603,6 +605,20 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   }, [product, onClose]);
 
   if (!product) return null;
+
+  const handleAddToCart = () => {
+    const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: priceNumber,
+      image: product.src,
+      quantity: 1,
+      reference: `REF-${product.id.toString().padStart(4, '0')}`,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
 
   return (
     <AnimatePresence>
@@ -685,7 +701,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 
             <div className="mt-8 flex flex-col gap-3">
               <button
-                onClick={() => { setAdded(true); setTimeout(() => setAdded(false), 2000); }}
+                onClick={handleAddToCart}
                 className={`w-full py-5 text-[9px] uppercase tracking-[0.45em] font-black flex items-center justify-center gap-4 transition-all duration-500 ${added ? 'bg-[#D4AF37] text-black' : 'bg-stone-900 text-white hover:bg-[#D4AF37] hover:text-black'}`}>
                 <ShoppingBag size={14} strokeWidth={1.5} />
                 {added ? '✓ Ajouté au panier' : 'Ajouter au panier'}

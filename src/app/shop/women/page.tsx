@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight, Mail } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 // ============================================================
 // DONNÉES
@@ -240,14 +241,14 @@ function WelcomeStrip() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-5">
-            Univers Masculin
+            Univers Feminin
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-black leading-tight mb-6">
             Bienvenue chez<br />MB-Creation
           </h2>
           <div className="h-px w-12 bg-[#D4AF37] mb-6" />
           <p className="text-stone-400 text-sm font-light leading-relaxed max-w-md">
-            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour l'homme qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
+            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour la femme  qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
           </p>
           <motion.a
             href="#collections"
@@ -383,6 +384,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   const [imgIdx, setImgIdx] = useState(0);
   const [size, setSize] = useState('');
   const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
 
   useEffect(() => { setImgIdx(0); setSize(''); setAdded(false); }, [product]);
   useEffect(() => {
@@ -395,6 +397,15 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   if (!product) return null;
 
   const handleAdd = () => {
+    const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: priceNumber,
+      image: product.images[0],
+      quantity: 1,
+      reference: `REF-${product.id.toString().padStart(4, '0')}`,
+    });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };

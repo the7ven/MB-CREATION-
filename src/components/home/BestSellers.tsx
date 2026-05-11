@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ShoppingBag, Heart, ArrowRight } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 const products = [
   {
@@ -57,8 +58,18 @@ const BADGE_STYLES: Record<string, string> = {
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
   const [liked, setLiked] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const { addToCart } = useCart();
 
   const handleCart = () => {
+    const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: priceNumber,
+      image: product.src,
+      quantity: 1,
+      reference: `REF-${product.id.toString().padStart(4, '0')}`,
+    });
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 1800);
   };
@@ -227,4 +238,3 @@ export default function BestSellers() {
     </section>
   );
 }
-

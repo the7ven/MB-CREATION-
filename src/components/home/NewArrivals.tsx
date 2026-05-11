@@ -1,7 +1,8 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import { useCart } from '@/context/CartContext';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -79,6 +80,23 @@ const newArrivals: Product[] = [
 function ProductCard({ product, delay = 0 }: { product: Product; delay?: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
+    addToCart({
+      id: product.id,
+      name: `${product.name} ${product.nameLine2}`,
+      price: priceNumber,
+      image: product.src,
+      quantity: 1,
+      reference: product.number.replace('N° ', 'REF-'),
+    });
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 1800);
+  };
 
   return (
     <motion.article
@@ -111,8 +129,11 @@ function ProductCard({ product, delay = 0 }: { product: Product; delay?: number 
 
           {/* Hover overlay with CTA */}
           <div className="absolute inset-0 z-[5] flex items-end p-7 bg-gradient-to-t from-[#1A1714]/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <button className="w-full border border-[#C9A84C]/70 text-[#E8C97A] text-[10px] tracking-[0.4em] uppercase font-light py-[14px] hover:bg-[#C9A84C] hover:border-[#C9A84C] hover:text-[#1A1714] transition-all duration-300">
-              Ajouter au panier
+            <button
+              onClick={handleAddToCart}
+              className="w-full border border-[#C9A84C]/70 text-[#E8C97A] text-[10px] tracking-[0.4em] uppercase font-light py-[14px] hover:bg-[#C9A84C] hover:border-[#C9A84C] hover:text-[#1A1714] transition-all duration-300"
+            >
+              {addedToCart ? '✓ Ajouté' : 'Ajouter au panier'}
             </button>
           </div>
         </div>

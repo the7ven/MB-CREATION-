@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight, Mail } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 // ============================================================
 // DONNÉES
@@ -383,6 +384,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   const [imgIdx, setImgIdx] = useState(0);
   const [size, setSize] = useState('');
   const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
 
   useEffect(() => { setImgIdx(0); setSize(''); setAdded(false); }, [product]);
   useEffect(() => {
@@ -395,6 +397,15 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   if (!product) return null;
 
   const handleAdd = () => {
+    const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: priceNumber,
+      image: product.images[0],
+      quantity: 1,
+      reference: `REF-${product.id.toString().padStart(4, '0')}`,
+    });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };

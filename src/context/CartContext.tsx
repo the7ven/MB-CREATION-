@@ -22,24 +22,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: 'Collier "Éclat d\'Or"',
-      price: 1250,
-      image: 'https://images.unsplash.com/photo-1599643478514-4a884f181731?q=80&w=800&auto=format&fit=crop',
-      quantity: 1,
-      reference: 'REF-1092-COL'
-    },
-    {
-      id: 2,
-      name: 'Bague "Promesse"',
-      price: 890,
-      image: 'https://images.unsplash.com/photo-1605100804763-247f6612148e?q=80&w=800&auto=format&fit=crop',
-      quantity: 1,
-      reference: 'REF-2034-BAG'
-    }
-  ]);
+  const [items, setItems] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {
     setItems(prev => {
