@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight, Mail } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
+
 // ============================================================
 // DONNÉES
 // ============================================================
@@ -42,7 +43,7 @@ const collections = [
     description: "L'héritage africain revisité — Bogolan, Kente et Ndop fusionnent avec soie et taffetas pour des silhouettes uniques.",
     products: [
       {
-        id: 1, name: 'Boubou Kenté Prestige', category: 'Tradition', price: '450 000', currency: 'FCFA',
+        id: 101, name: 'KABA', category: 'Tradition', price: '450 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=800',
           'https://images.unsplash.com/photo-1614612144521-17b2907af0e4?q=80&w=800',
@@ -50,7 +51,7 @@ const collections = [
         description: "Alliance parfaite entre savoir-faire ancestral et coupe contemporaine. Tissage réalisé à la main.",
       },
       {
-        id: 2, name: 'Ensemble Bogolan Été', category: 'Casual', price: '320 000', currency: 'FCFA',
+        id: 102, name: 'Ensemble Bogolan Été', category: 'Casual', price: '320 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800',
           'https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=800',
@@ -58,7 +59,7 @@ const collections = [
         description: "Bogolan authentique du Mali, réinterprété pour un style urbain et moderne.",
       },
       {
-        id: 3, name: 'Veste Ndop Cérémonie', category: 'Soirée', price: '580 000', currency: 'FCFA',
+        id: 103, name: 'Veste Ndop Cérémonie', category: 'Soirée', price: '580 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1598971939794-52d8807d4766?q=80&w=800',
           'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800',
@@ -74,7 +75,7 @@ const collections = [
     description: "La vision futuriste du costume classique. Matériaux techniques, coupes ultra-slim, finitions architecturales.",
     products: [
       {
-        id: 4, name: 'Veste Graphite Icone', category: 'Tailoring', price: '890 000', currency: 'FCFA',
+        id: 104, name: 'Veste Graphite Icone', category: 'Tailoring', price: '890 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=800',
           'https://images.unsplash.com/photo-1594938384824-0230232f05ba?q=80&w=800',
@@ -82,7 +83,7 @@ const collections = [
         description: "Coupe ultra-slim et matériaux techniques pour l'homme qui façonne les codes.",
       },
       {
-        id: 5, name: 'Costume Lin Structuré', category: 'Business', price: '740 000', currency: 'FCFA',
+        id: 105, name: 'Costume Lin Structuré', category: 'Business', price: '740 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=800',
           'https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=800',
@@ -90,7 +91,7 @@ const collections = [
         description: "Lin premium structuré, silhouette architecturale pour une présence inégalée.",
       },
       {
-        id: 6, name: 'Blazer Technique Nuit', category: 'Soirée', price: '620 000', currency: 'FCFA',
+        id: 106, name: 'Blazer Technique Nuit', category: 'Soirée', price: '620 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=800',
           'https://images.unsplash.com/photo-1598971939794-52d8807d4766?q=80&w=800',
@@ -106,7 +107,7 @@ const collections = [
     description: "La quintessence du tailoring masculin. Coupes italiennes, soies de mûrier, velours de nuit — des pièces intemporelles.",
     products: [
       {
-        id: 7, name: 'Veste Smoking Velours', category: 'Soirée', price: '720 000', currency: 'FCFA',
+        id: 107, name: 'Veste Smoking Velours', category: 'Soirée', price: '720 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1598971939794-52d8807d4766?q=80&w=800',
           'https://images.unsplash.com/photo-1592772874383-d08932d2c568?q=80&w=800',
@@ -114,7 +115,7 @@ const collections = [
         description: "Velours de soie italien, silhouette structurée pour vos soirées les plus prestigieuses.",
       },
       {
-        id: 8, name: 'Chemise Soie Blanche', category: 'Essentiels', price: '185 000', currency: 'FCFA',
+        id: 108, name: 'Chemise Soie Blanche', category: 'Essentiels', price: '185 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1621072156002-e2fcced0b17d?q=80&w=800',
           'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800',
@@ -122,7 +123,7 @@ const collections = [
         description: "100% soie de mûrier. Fluidité incomparable pour un confort quotidien absolu.",
       },
       {
-        id: 9, name: 'Pantalon Flanelle Gris', category: 'Classique', price: '340 000', currency: 'FCFA',
+        id: 109, name: 'Pantalon Flanelle Gris', category: 'Classique', price: '340 000', currency: 'FCFA',
         images: [
           'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?q=80&w=800',
           'https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?q=80&w=800',
@@ -241,14 +242,14 @@ function WelcomeStrip() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-5">
-            Univers Feminin
+            Univers FEMININ
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-black leading-tight mb-6">
             Bienvenue chez<br />MB-Creation
           </h2>
           <div className="h-px w-12 bg-[#D4AF37] mb-6" />
           <p className="text-stone-400 text-sm font-light leading-relaxed max-w-md">
-            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour la femme  qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
+            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour la femme qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
           </p>
           <motion.a
             href="#collections"
@@ -381,10 +382,10 @@ function CollectionSection({ collection, onOpen }: { collection: typeof collecti
 // MODAL
 // ============================================================
 function ProductModal({ product, onClose }: { product: Product | null; onClose: () => void }) {
-  const [imgIdx, setImgIdx] = useState(0);
-  const [size, setSize] = useState('');
-  const [added, setAdded] = useState(false);
-  const { addToCart } = useCart();
+    const [imgIdx, setImgIdx] = useState(0);
+    const [size, setSize] = useState('');
+    const [added, setAdded] = useState(false);
+    const { addToCart } = useCart();
 
   useEffect(() => { setImgIdx(0); setSize(''); setAdded(false); }, [product]);
   useEffect(() => {
@@ -396,7 +397,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 
   if (!product) return null;
 
-  const handleAdd = () => {
+ const handleAdd = () => {
     const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
     addToCart({
       id: product.id,
