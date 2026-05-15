@@ -6,6 +6,8 @@ import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
 
 // Configuration de Cormorant Garamond comme police principale
+
+export const dynamic = 'force-dynamic';
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],

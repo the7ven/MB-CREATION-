@@ -1,19 +1,27 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+let _client: SupabaseClient | null = null;
 
-// On vérifie la présence des clés AVANT de créer le client
-if (!supabaseUrl || !supabaseAnonKey) {
-  // En mode développement, on prévient l'utilisateur
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn("Attention: Les clés Supabase sont manquantes. Vérifiez votre fichier .env.local");
+function getClient(): SupabaseClient {
+  if (_client) return _client;
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !key) {
+    throw new Error(
+      'NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY sont requis.\n' +
+      'Vérifiez vos variables d\'environnement sur Vercel.'
+    );
   }
+
+  _client = createClient(url, key);
+  return _client;
 }
 
-// Pour éviter l'erreur "supabaseUrl is required", on passe des valeurs par défaut 
-// uniquement si les vraies sont absentes (cas du build statique)
-export const supabase = createClient(
-  supabaseUrl || 'https://placeholder-url.supabase.co', 
-  supabaseAnonKey || 'placeholder-key'
-);
+// Proxy : le client n'est créé qu'au premier appel réel (jamais au build)
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_, prop: string) {
+    return (getClient() as any)[prop];
+  },
+});
