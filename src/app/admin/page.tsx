@@ -537,6 +537,7 @@ function ProductModal({
 // ============================================================
 // DASHBOARD PRINCIPAL
 // ============================================================
+export const dynamic = "force-dynamic";
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"products" | "orders" | "history">("products");
   const [products, setProducts] = useState<Product[]>([]);
