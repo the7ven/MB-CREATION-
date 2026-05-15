@@ -446,6 +446,8 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 // ============================================================
 // PAGE PRINCIPALE
 // ============================================================
+// app/shop/trending/page.tsx
+export const dynamic = 'force-dynamic';
 export default function KidsPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [collections, setCollections] = useState<CollectionData[]>([]);

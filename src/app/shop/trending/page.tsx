@@ -396,6 +396,7 @@ function Skeleton() {
 // ============================================================
 // PAGE PRINCIPALE
 // ============================================================
+export const dynamic = "force-dynamic";
 export default function TrendingPage() {
   const [products,        setProducts]        = useState<Product[]>([]);
   const [loading,         setLoading]         = useState(true);

@@ -290,6 +290,9 @@ function ProductModal({ product, onClose }: { product: SupaProduct | null; onClo
   );
 }
 
+
+
+export const dynamic = 'force-dynamic';
 export default function BestSellers() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });

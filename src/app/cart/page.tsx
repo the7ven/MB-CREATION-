@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ChevronRight, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
+export const dynamic = "force-dynamic";
 export default function CartPage() {
   const { items, removeFromCart, updateQuantity, subtotal } = useCart();
   const shipping = 0; // Livraison offerte

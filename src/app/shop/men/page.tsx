@@ -453,6 +453,8 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 // ============================================================
 // PAGE PRINCIPALE
 // ============================================================
+
+export const dynamic = 'force-dynamic';
 export default function MenPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [collections, setCollections] = useState<CollectionData[]>([]);

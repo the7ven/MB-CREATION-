@@ -291,8 +291,8 @@ function ProductModal({ product, onClose }: { product: SupaProduct | null; onClo
   );
 }
 
-// ─── Main Section ──────────────────────────────────────────────────────────────
 
+export const dynamic = 'force-dynamic';
 export default function NewArrivals() {
   const [products, setProducts] = useState<SupaProduct[]>([]);
   const [loading, setLoading] = useState(true);
