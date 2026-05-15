@@ -2,12 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight, Mail } from 'lucide-react';
+import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { supabase } from '@/lib/supabase';
-
 
 // ============================================================
 // DONNÉES
@@ -15,51 +12,37 @@ import { supabase } from '@/lib/supabase';
 const heroSlides = [
   {
     id: 1,
-    title: 'Made of\nAfrica',
-    description: 'Collection focusing on premium African fabrics — Bogolan, Kente, Ndop combined with silk and taffeta to create original and unique looks.',
-    src: 'https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?q=80&w=2000&auto=format&fit=crop',
-    accent: 'Collection Été',
+    title: 'Mini\nRoyals',
+    description: "Des tenues pensées pour les petits princes et princesses — tissus africains authentiques, coupes confortables et styles qui font briller les enfants.",
+    src: 'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?q=80&w=2000&auto=format&fit=crop',
+    accent: 'Collection Enfant',
   },
   {
     id: 2,
-    title: 'Icone &\nIcone 2.0',
-    description: 'Fresh, youthful and modern looks suitable for day and night. African fabric crafted and adapted to the environment and temperate climate.',
-    src: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000&auto=format&fit=crop',
-    accent: 'Tailoring Contemporain',
+    title: "Couleurs\nd'Afrique",
+    description: "Kente, Bogolan et Ndop revisités en mini versions. Des pièces joyeuses qui racontent l'histoire du continent aux générations futures.",
+    src: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=2000&auto=format&fit=crop',
+    accent: 'Héritage & Jeunesse',
   },
   {
     id: 3,
-    title: 'New\nCollection 2025',
-    description: 'Root Black & Root White — a comeback marked by refined elegance. African fabric combined with sustainable materials for timeless urban chic clothing.',
-    src: 'https://images.unsplash.com/photo-1593032465175-481ac7f402a1?q=80&w=2000&auto=format&fit=crop',
+    title: 'New\nGeneration',
+    description: "Confort, style et authenticité — notre collection 2025 pour enfants allie matières naturelles et coupes modernes pour les aventuriers de demain.",
+    src: 'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=2000&auto=format&fit=crop',
     accent: 'Nouveauté 2025',
   },
 ];
 
-// Collections statiques — structure & titres seulement
+
 // Les produits sont chargés dynamiquement depuis Supabase
 const COLLECTION_META = [
-  {
-    id: 'icone',
-    supabaseKey: 'Femme · Icone',
-    title: 'Icone',
-    anchor: 'icone',
-    description: "La quintessence du tailoring féminin. Coupes italiennes, soies de mûrier, velours de nuit — des pièces intemporelles.",
-  },
-  {
-    id: 'icone2',
-    supabaseKey: 'Femme · Icone 2.0',
-    title: 'Icone 2.0',
-    anchor: 'icone-2',
-    description: "La vision futuriste du costume féminin. Matériaux techniques, coupes ultra-slim, finitions architecturales.",
-  },
-  {
+ {
     id: 'africa',
-    supabaseKey: 'Femme · Made of Africa',
+    supabaseKey: 'Enfant · Made of Africa',
     title: 'Made of Africa',
     anchor: 'made-of-africa',
     description: "L'héritage africain revisité — Bogolan, Kente et Ndop fusionnent avec soie et taffetas pour des silhouettes uniques.",
-  },
+  }
 ];
 
 // ============================================================
@@ -112,11 +95,9 @@ function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Gradient bas */}
       <div className="absolute bottom-0 left-0 right-0 h-64 z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to top, #000 0%, transparent 100%)' }} />
 
-      {/* Contenu */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end px-8 md:px-20 pb-24">
         <AnimatePresence mode="wait">
           <motion.div
@@ -143,7 +124,6 @@ function HeroSlider() {
         </AnimatePresence>
       </div>
 
-      {/* Navigation */}
       <div className="absolute bottom-8 right-10 z-20 flex items-center gap-5">
         <button onClick={() => setCurrent(p => (p - 1 + heroSlides.length) % heroSlides.length)}
           className="w-10 h-10 border border-white/20 flex items-center justify-center text-white/40 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all duration-300">
@@ -158,7 +138,6 @@ function HeroSlider() {
         </button>
       </div>
 
-      {/* Dots */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-4">
         {heroSlides.map((_, i) => (
           <button key={i} onClick={() => setCurrent(i)}
@@ -185,14 +164,14 @@ function WelcomeStrip() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-5">
-            Univers FEMININ
+            Univers Enfant
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-black leading-tight mb-6">
-            Bienvenue chez<br />MB-Creation
+            Bienvenue chez<br />MB-Creation Kids
           </h2>
           <div className="h-px w-12 bg-[#D4AF37] mb-6" />
           <p className="text-stone-400 text-sm font-light leading-relaxed max-w-md">
-            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour la femme qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
+            De l'héritage africain aux silhouettes contemporaines, chaque pièce MB-Creation Kids est conçue pour les petits qui portent l'avenir. Matières douces, coupes libres, âme africaine.
           </p>
           <motion.a
             href="#collections"
@@ -203,7 +182,6 @@ function WelcomeStrip() {
           </motion.a>
         </motion.div>
 
-        {/* Images décoratives */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -211,10 +189,10 @@ function WelcomeStrip() {
           className="grid grid-cols-2 gap-4 h-96"
         >
           <div className="relative overflow-hidden bg-stone-100">
-            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
+            <img src="https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
           </div>
           <div className="relative overflow-hidden bg-stone-100 mt-8">
-            <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
+            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
           </div>
         </motion.div>
       </div>
@@ -238,7 +216,11 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       className="group flex flex-col"
     >
-      <div className="relative overflow-hidden bg-stone-100 cursor-pointer mb-5" style={{ aspectRatio: '3/4' }} onClick={() => onOpen(product)}>
+      <div
+        className="relative overflow-hidden bg-stone-100 cursor-pointer mb-5"
+        style={{ aspectRatio: '3/4' }}
+        onClick={() => onOpen(product)}
+      >
         <img
           src={product.images[0]}
           alt={product.name}
@@ -247,7 +229,6 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-all duration-700" />
 
-        {/* Wishlist */}
         <button
           onClick={e => { e.stopPropagation(); setLiked(l => !l); }}
           className="absolute top-4 right-4 z-10 p-2 bg-white/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300"
@@ -255,10 +236,11 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
           <Heart size={13} strokeWidth={1.5} className={liked ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-stone-500'} />
         </button>
 
-        {/* CTA */}
         <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-          <button onClick={() => onOpen(product)}
-            className="w-full py-3.5 bg-white text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] transition-colors duration-300">
+          <button
+            onClick={() => onOpen(product)}
+            className="w-full py-3.5 bg-white text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] transition-colors duration-300"
+          >
             Aperçu rapide
           </button>
         </div>
@@ -266,9 +248,13 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
 
       <span className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] font-bold mb-1">{product.category}</span>
       <h3 className="text-sm font-black uppercase tracking-wider text-stone-900 mb-1">{product.name}</h3>
-      <p className="text-sm font-light text-stone-400">{product.price} <span className="text-[10px] tracking-widest">{product.currency}</span></p>
-      <button onClick={() => onOpen(product)}
-        className="mt-3 self-start flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] font-bold text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group/btn">
+      <p className="text-sm font-light text-stone-400">
+        {product.price} <span className="text-[10px] tracking-widest">{product.currency}</span>
+      </p>
+      <button
+        onClick={() => onOpen(product)}
+        className="mt-3 self-start flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] font-bold text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group/btn"
+      >
         Détails
         <ArrowRight size={11} strokeWidth={2} className="group-hover/btn:translate-x-1 transition-transform" />
       </button>
@@ -333,10 +319,10 @@ function CollectionSection({ collection, onOpen }: { collection: CollectionData;
 // MODAL
 // ============================================================
 function ProductModal({ product, onClose }: { product: Product | null; onClose: () => void }) {
-    const [imgIdx, setImgIdx] = useState(0);
-    const [size, setSize] = useState('');
-    const [added, setAdded] = useState(false);
-    const { addToCart } = useCart();
+  const [imgIdx, setImgIdx] = useState(0);
+  const [size, setSize] = useState('');
+  const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
 
   useEffect(() => { setImgIdx(0); setSize(''); setAdded(false); }, [product]);
   useEffect(() => {
@@ -348,7 +334,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 
   if (!product) return null;
 
- const handleAdd = () => {
+  const handleAdd = () => {
     const priceNumber = parseInt(String(product.price).replace(/[\s\u00a0]/g, ''), 10) || 0;
     addToCart({
       id: product.id,
@@ -384,7 +370,6 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 
           {/* Galerie */}
           <div className="w-full md:w-[55%] flex flex-col md:flex-row bg-stone-50 shrink-0">
-            {/* Thumbnails */}
             <div className="flex md:flex-col gap-2 p-4 overflow-x-auto md:overflow-y-auto shrink-0">
               {product.images.map((img, idx) => (
                 <div key={idx} onClick={() => setImgIdx(idx)}
@@ -395,7 +380,6 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
               ))}
             </div>
 
-            {/* Image principale */}
             <div className="flex-grow h-[360px] md:h-auto overflow-hidden bg-stone-100">
               <motion.img
                 key={`${product.id}-${imgIdx}`}
@@ -417,20 +401,22 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
                 <div className="h-px w-7 bg-[#D4AF37]" />
                 <span className="text-[9px] uppercase tracking-[0.5em] text-[#D4AF37] font-bold">{product.category}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-black leading-none mb-4">{product.name}</h2>
+              <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-black leading-none mb-4">
+                {product.name}
+              </h2>
               <p className="text-2xl font-light text-stone-800 mb-6">
                 {product.price} <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">{product.currency}</span>
               </p>
               <div className="h-px bg-stone-100 mb-6" />
               <p className="text-stone-500 text-sm font-light leading-relaxed mb-8">{product.description}</p>
 
-              {/* Tailles */}
+              {/* Tailles enfant */}
               <div>
                 <p className="text-[9px] uppercase tracking-[0.4em] font-black text-stone-400 mb-3">Taille</p>
                 <div className="flex flex-wrap gap-2">
-                  {['S', 'M', 'L', 'XL', 'XXL'].map(s => (
+                  {['2 ans', '4 ans', '6 ans', '8 ans', '10 ans', '12 ans'].map(s => (
                     <button key={s} onClick={() => setSize(s)}
-                      className={`w-10 h-10 text-[10px] font-bold transition-all duration-200 border ${size === s ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 text-stone-600 hover:border-stone-500'}`}>
+                      className={`px-3 h-10 text-[9px] font-bold transition-all duration-200 border ${size === s ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 text-stone-600 hover:border-stone-500'}`}>
                       {s}
                     </button>
                   ))}
@@ -439,8 +425,10 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
             </div>
 
             <div className="mt-8 flex flex-col gap-3">
-              <button onClick={handleAdd}
-                className={`w-full py-5 text-[9px] uppercase tracking-[0.45em] font-black flex items-center justify-center gap-4 transition-all duration-500 ${added ? 'bg-[#D4AF37] text-black' : 'bg-stone-900 text-white hover:bg-[#D4AF37] hover:text-black'}`}>
+              <button
+                onClick={handleAdd}
+                className={`w-full py-5 text-[9px] uppercase tracking-[0.45em] font-black flex items-center justify-center gap-4 transition-all duration-500 ${added ? 'bg-[#D4AF37] text-black' : 'bg-stone-900 text-white hover:bg-[#D4AF37] hover:text-black'}`}
+              >
                 <ShoppingBag size={14} strokeWidth={1.5} />
                 {added ? '✓ Ajouté au panier' : 'Ajouter au panier'}
               </button>
@@ -455,11 +443,10 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   );
 }
 
-
-
-
+// ============================================================
 // PAGE PRINCIPALE
-export default function WomenPage() {
+// ============================================================
+export default function KidsPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [collections, setCollections] = useState<CollectionData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -469,7 +456,7 @@ export default function WomenPage() {
       const { data, error } = await supabase
         .from('products')
         .select('*')
-        .ilike('category', 'Femme%')
+        .ilike('category', 'Enfant%')
         .eq('is_available', true)
         .order('created_at', { ascending: false });
 

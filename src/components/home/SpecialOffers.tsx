@@ -1,37 +1,32 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const slides = [
   {
-    tag: 'Offre Exclusive · Collection Printemps',
+    tag: 'Exclusive Offer · Spring Collection',
     discount: '−30%',
-    headline: ['La', 'distinction', 'est en solde'],
-    description: 'Robes de couture et pièces signatures.\nSélection limitée, raffinement garanti.',
+    headline: ['The', 'distinction', 'is on sale'],
+    description: 'Couture dresses and signature pieces.\nLimited selection, guaranteed refinement.',
     image: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/gallery%20(11).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2dhbGxlcnkgKDExKS5qcGciLCJpYXQiOjE3NzczMDMzNzAsImV4cCI6MTgwODgzOTM3MH0.H3Udt_O99BYw2C-OiebHmqsU9UJoejuRWbwwHVvImNs',
-    badge: 'Exclusivité',
-    cta: 'Profiter de l\'offre',
-    ctaSecondary: 'Voir la collection',
+    badge: 'Exclusive',
   },
   {
-    tag: 'Édition Limitée · Horlogerie de Prestige',
+    tag: 'Limited Edition · Prestige Timepieces',
     discount: '−20%',
-    headline: ['Le temps,', 'symbole de', 'prestige'],
-    description: 'Montres d\'exception sélectionnées par nos experts.\nUne alliance entre art et mécanique.',
+    headline: ['Time,', 'the symbol', 'of prestige'],
+    description: 'Exceptional watches selected by our experts.\nA union between art and mechanics.',
     image: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner3.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjMucG5nIiwiaWF0IjoxNzc3MjU2MjA4LCJleHAiOjE4MDg3OTIyMDh9.hkYqO4oPAAvemxd7kKP1RAMSuxHGcbhZAUI5D6LyBcw',
-    badge: 'Édition Limitée',
-    cta: 'Découvrir les pièces',
-    ctaSecondary: 'Notre sélection',
+    badge: 'Limited Edition',
   },
   {
-    tag: 'Flash Sale · Maroquinerie · 48h seulement',
+    tag: 'Flash Sale · Leather Goods · 48h Only',
     discount: '−40%',
-    headline: ['L\'art du cuir,', 'essence de', 'excellence'],
-    description: 'Sacs, ceintures et accessoires en cuir pleine fleur.\nArtisanat français, offre exceptionnelle.',
+    headline: ['The art of leather,', 'the essence', 'of excellence'],
+    description: 'Bags, belts and full-grain leather accessories.\nFrench craftsmanship, exceptional offer.',
     image: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner5%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjUgKDEpLnBuZyIsImlhdCI6MTc3NzI1NjgyNSwiZXhwIjoxODA4NzkyODI1fQ.ljavxZd4Wottze_9-dk8WEzXi9-7zcgMEVHAQuNfCXk',
     badge: 'Flash Sale',
-    cta: 'Saisir l\'occasion',
-    ctaSecondary: 'En savoir plus',
   },
 ];
 
@@ -53,6 +48,7 @@ export default function SpecialOffers() {
 
   return (
     <div className="relative overflow-hidden bg-[#0e0d0b] min-h-[700px] font-serif">
+
       {/* Background images with crossfade */}
       <AnimatePresence>
         <motion.img
@@ -71,8 +67,7 @@ export default function SpecialOffers() {
       <div
         className="absolute inset-0"
         style={{
-          background:
-            'linear-gradient(120deg, rgba(10,8,5,0.82) 40%, rgba(180,145,60,0.10) 100%)',
+          background: 'linear-gradient(120deg, rgba(10,8,5,0.82) 40%, rgba(180,145,60,0.10) 100%)',
         }}
       />
 
@@ -94,7 +89,7 @@ export default function SpecialOffers() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 px-12 pt-14 pb-10 max-w-lg"
+          className="relative z-10 px-12 pt-40 pb-10 max-w-lg"
         >
           {/* Tagline */}
           <span className="text-[#D4AF37] text-[10px] tracking-[0.5em] uppercase font-bold mb-5 block">
@@ -130,21 +125,18 @@ export default function SpecialOffers() {
             {slide.description}
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-start gap-4">
-            <button className="px-8 py-4 bg-[#D4AF37] text-[#0e0d0b] text-[10px] uppercase tracking-[0.35em] font-black hover:bg-[#f5f0e8] transition-colors duration-500 shadow-xl">
-              {slide.cta}
-            </button>
-            <button className="px-8 py-4 border border-[rgba(245,240,232,0.25)] text-[#f5f0e8] text-[10px] uppercase tracking-[0.35em] font-semibold hover:bg-[#f5f0e8] hover:text-[#0e0d0b] hover:border-[#f5f0e8] transition-all duration-500">
-              {slide.ctaSecondary}
-            </button>
-          </div>
+          {/* Single CTA → Trending */}
+          <Link
+            href="/shop/trending"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#D4AF37] text-[#0e0d0b] text-[10px] uppercase tracking-[0.35em] font-black hover:bg-[#f5f0e8] transition-colors duration-500 shadow-xl"
+          >
+            View Special Offers
+          </Link>
         </motion.div>
       </AnimatePresence>
 
       {/* Navigation */}
       <div className="absolute bottom-8 right-10 z-10 flex items-center gap-5">
-        {/* Dot indicators */}
         <div className="flex gap-2">
           {slides.map((_, i) => (
             <button
@@ -159,7 +151,6 @@ export default function SpecialOffers() {
           ))}
         </div>
 
-        {/* Arrows */}
         <button
           onClick={() => goTo(current - 1)}
           className="w-9 h-9 border border-[rgba(212,175,55,0.4)] text-[#D4AF37] flex items-center justify-center hover:bg-[#D4AF37] hover:text-[#0e0d0b] hover:border-[#D4AF37] transition-all duration-300 text-base"

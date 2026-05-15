@@ -53,27 +53,35 @@ export default function Footer() {
           </div>
 
           {/* Colonne 2 : Collections */}
-          <div>
-            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">Collections</h3>
-            <ul className="space-y-4">
-              {['Prêt-à-porter', 'Robes de soirée', 'Maroquinerie', 'Accessoires', 'Éditions limitées', 'Sur-mesure'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+         <div>
+  <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">Collections</h3>
+  <ul className="space-y-4">
+    {[
+      { label: "MEN'S",  href: "/shop/men"   },
+      { label: "WOMEN'S",  href: "/shop/women" },
+      { label: "KIDS", href: "/shop/kids"  },
+    ].map((item) => (
+      <li key={item.href}>
+        <Link href={item.href} className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
+          {item.label}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</div>
 
           {/* Colonne 3 : Services */}
           <div>
             <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">La Maison</h3>
             <ul className="space-y-4">
-              {['Notre histoire', "L'atelier", 'Engagements', 'Presse', 'Carrières', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
-                    {item}
+              {[
+                { label: "Notre histoire", href:"/pages/about" },
+                { label: "Contact", href: "/contact" },
+                
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -111,6 +119,7 @@ export default function Footer() {
         <div className="flex flex-col md:row justify-between items-center pt-10 border-t border-white/5 text-[10px] text-white/30 tracking-widest uppercase gap-4">
           <p>© 2026 <span className="text-white/60 font-bold">MB·Creation</span>. Tous droits réservés.</p>
           <div className="flex gap-8">
+            <Link href="/admin" className="hover:text-[#D4AF37]">Admin</Link>
             <Link href="#" className="hover:text-[#D4AF37]">Mentions Légales</Link>
             <Link href="#" className="hover:text-[#D4AF37]">Politique de Confidentialité</Link>
             <Link href="#" className="hover:text-[#D4AF37]">CGV</Link>

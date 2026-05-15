@@ -11,22 +11,22 @@ const slides = [
     id: 1, 
     src: "https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/mb1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL21iMS5wbmciLCJpYXQiOjE3Nzc0MzEzNzUsImV4cCI6MTgwODk2NzM3NX0.DLUtM2Nf8n3kBV0QjAtx8sKAz7701TuMPrOFIWZ-ryU", 
     alt: "Costume de Luxe Homme MB-Creation",
-    tagline: "L'art du sur-mesure",
-    headline: "Incarnez la distinction absolue"
+    tagline: "The Art of Bespoke",
+    headline: "Embody Absolute Distinction"
   },
   { 
     id: 2, 
     src: "https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner5%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjUgKDIpLnBuZyIsImlhdCI6MTc3NzI1Njc5MCwiZXhwIjoxODA4NzkyNzkwfQ.2devq4TUc552A2SOhd7770ZoJF0BknDfH_cbu-BXg1M", 
     alt: "Collection Femme Soie et Cachemire",
-    tagline: "Élégance intemporelle",
-    headline: "La douceur du prestige sur votre peau"
+    tagline: "An Eternal Grace",
+    headline: "The Softness of Prestige on Your Skin"
   },
   { 
     id: 3, 
     src: "https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/sign/mb-creation%20article/banner5%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTZjMGNlOS1iZjM4LTRkOTItYjI2NC04ZGE2NGEwOGNjMTEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtYi1jcmVhdGlvbiBhcnRpY2xlL2Jhbm5lcjUgKDEpLnBuZyIsImlhdCI6MTc3NzI1NjgyNSwiZXhwIjoxODA4NzkyODI1fQ.ljavxZd4Wottze_9-dk8WEzXi9-7zcgMEVHAQuNfCXk", 
     alt: "Accessoires Maroquinerie Haut de Gamme",
-    tagline: "Le détail qui change tout",
-    headline: "L'excellence jusque dans les détails"
+    tagline: "The Detail that Changes Everything",
+    headline: "Perfection Down to the Last Detail"
   },
 ];
 

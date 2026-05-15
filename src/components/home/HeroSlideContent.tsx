@@ -45,13 +45,13 @@ export default function HeroSlideContent({ slide }: SlideContentProps) {
           href="/shop/trending"
           className="px-12 py-5 bg-[#D4AF37] text-black text-[10px] uppercase tracking-[0.3em] font-black hover:bg-stone-900 hover:text-white transition-colors duration-500 shadow-xl"
         >
-          Acheter la collection
+         Discover the Collection
         </Link>
         <Link
           href="/pages/about"
           className="px-12 py-5 border border-stone-900/20 text-stone-900 text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-stone-900 hover:text-white transition-all duration-500"
         >
-          Notre Histoire
+         Our Story 
         </Link>
       </div>
     </motion.div>

@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight, Mail } from 'lucide-react';
+import { ShoppingBag, Heart, X, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { supabase } from '@/lib/supabase';
 
 // ============================================================
 // DONNÉES
@@ -34,106 +33,48 @@ const heroSlides = [
   },
 ];
 
-const collections = [
+// Collections statiques — structure & titres seulement
+// Les produits sont chargés dynamiquement depuis Supabase
+const COLLECTION_META = [
   {
-    id: 'africa',
-    title: 'Made of Africa',
-    anchor: 'made-of-africa',
-    description: "L'héritage africain revisité — Bogolan, Kente et Ndop fusionnent avec soie et taffetas pour des silhouettes uniques.",
-    products: [
-      {
-        id: 1, name: 'Boubou Kenté Prestige', category: 'Tradition', price: '450 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=800',
-          'https://images.unsplash.com/photo-1614612144521-17b2907af0e4?q=80&w=800',
-        ],
-        description: "Alliance parfaite entre savoir-faire ancestral et coupe contemporaine. Tissage réalisé à la main.",
-      },
-      {
-        id: 2, name: 'Ensemble Bogolan Été', category: 'Casual', price: '320 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800',
-          'https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=800',
-        ],
-        description: "Bogolan authentique du Mali, réinterprété pour un style urbain et moderne.",
-      },
-      {
-        id: 3, name: 'Veste Ndop Cérémonie', category: 'Soirée', price: '580 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1598971939794-52d8807d4766?q=80&w=800',
-          'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800',
-        ],
-        description: "Tissu Ndop du Cameroun, coupe ajustée pour les grandes occasions.",
-      },
-    ],
+    id: 'icone',
+    supabaseKey: 'Homme · Icone',
+    title: 'Icone',
+    anchor: 'icone',
+    description:"The quintessence of masculine tailoring. African excellence and Cameroonian prestige — mulberry silks, midnight velvet, timeless pieces." ,
   },
   {
     id: 'icone2',
+    supabaseKey: 'Homme · Icone 2.0',
     title: 'Icone 2.0',
     anchor: 'icone-2',
-    description: "La vision futuriste du costume classique. Matériaux techniques, coupes ultra-slim, finitions architecturales.",
-    products: [
-      {
-        id: 4, name: 'Veste Graphite Icone', category: 'Tailoring', price: '890 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=800',
-          'https://images.unsplash.com/photo-1594938384824-0230232f05ba?q=80&w=800',
-        ],
-        description: "Coupe ultra-slim et matériaux techniques pour l'homme qui façonne les codes.",
-      },
-      {
-        id: 5, name: 'Costume Lin Structuré', category: 'Business', price: '740 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=800',
-          'https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=800',
-        ],
-        description: "Lin premium structuré, silhouette architecturale pour une présence inégalée.",
-      },
-      {
-        id: 6, name: 'Blazer Technique Nuit', category: 'Soirée', price: '620 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=800',
-          'https://images.unsplash.com/photo-1598971939794-52d8807d4766?q=80&w=800',
-        ],
-        description: "Matière technique à reflets, coupe ajustée pour les soirées d'exception.",
-      },
-    ],
+    description: "A futuristic vision of masculine tailoring. Technical fabrics, ultra-slim cuts, and architectural finishes.",
   },
   {
-    id: 'icone',
-    title: 'Icone',
-    anchor: 'icone',
-    description: "La quintessence du tailoring masculin. Coupes italiennes, soies de mûrier, velours de nuit — des pièces intemporelles.",
-    products: [
-      {
-        id: 7, name: 'Veste Smoking Velours', category: 'Soirée', price: '720 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1598971939794-52d8807d4766?q=80&w=800',
-          'https://images.unsplash.com/photo-1592772874383-d08932d2c568?q=80&w=800',
-        ],
-        description: "Velours de soie italien, silhouette structurée pour vos soirées les plus prestigieuses.",
-      },
-      {
-        id: 8, name: 'Chemise Soie Blanche', category: 'Essentiels', price: '185 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1621072156002-e2fcced0b17d?q=80&w=800',
-          'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800',
-        ],
-        description: "100% soie de mûrier. Fluidité incomparable pour un confort quotidien absolu.",
-      },
-      {
-        id: 9, name: 'Pantalon Flanelle Gris', category: 'Classique', price: '340 000', currency: 'FCFA',
-        images: [
-          'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?q=80&w=800',
-          'https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?q=80&w=800',
-        ],
-        description: "Flanelle anglaise d'exception, tombé parfait pour une élégance discrète.",
-      },
-    ],
+    id: 'africa',
+    supabaseKey: 'Homme · Made of Africa',
+    title: 'Made of Africa',
+    anchor: 'made-of-africa',
+    description: "A celebration of African heritage. Bogolan, Kente and Ndop fabrics reimagined with silk and taffeta for bold, contemporary silhouettes.",
   },
 ];
 
-type Product = typeof collections[0]['products'][0];
+// ============================================================
+// TYPE PRODUIT (depuis Supabase)
+// ============================================================
+type Product = {
+  id: string;
+  name: string;
+  price: string;
+  currency: string;
+  category: string;
+  description: string;
+  images: string[];
+  image_url: string;
+  badge: string;
+  stock: number;
+  is_available: boolean;
+};
 
 // ============================================================
 // HERO SLIDER
@@ -193,7 +134,7 @@ function HeroSlider() {
               {slide.description}
             </p>
             <a href="#collections" className="inline-flex items-center gap-3 px-10 py-4 bg-[#D4AF37] text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-white transition-colors duration-500">
-              Découvrir <ArrowRight size={12} strokeWidth={2} />
+              Discover <ArrowRight size={12} strokeWidth={2} />
             </a>
           </motion.div>
         </AnimatePresence>
@@ -241,20 +182,20 @@ function WelcomeStrip() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-5">
-            Univers Masculin
+            Men's Universe
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-black leading-tight mb-6">
-            Bienvenue chez<br />MB-Creation
+            Welcome to<br />MB-Creation
           </h2>
           <div className="h-px w-12 bg-[#D4AF37] mb-6" />
           <p className="text-stone-400 text-sm font-light leading-relaxed max-w-md">
-            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour l'homme qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
+            From African heritage to contemporary tailoring, every MB-Creation piece is designed for the man who refuses to choose between identity and elegance. Fine materials, precise cuts, authentic soul.
           </p>
           <motion.a
             href="#collections"
             className="inline-flex items-center gap-3 mt-8 text-[9px] uppercase tracking-[0.4em] font-black text-stone-900 border-b border-stone-200 pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group"
           >
-            Explorer les collections
+            Discover the collections
             <ArrowRight size={12} strokeWidth={2} className="group-hover:translate-x-1 transition-transform duration-300" />
           </motion.a>
         </motion.div>
@@ -267,10 +208,10 @@ function WelcomeStrip() {
           className="grid grid-cols-2 gap-4 h-96"
         >
           <div className="relative overflow-hidden bg-stone-100">
-            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
+            <img src="https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/malepage%20(4).PNG" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
           </div>
           <div className="relative overflow-hidden bg-stone-100 mt-8">
-            <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
+            <img src="https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/MB-Crea-pic%20(6)%20(1).jpg" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
           </div>
         </motion.div>
       </div>
@@ -315,7 +256,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
         <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
           <button onClick={() => onOpen(product)}
             className="w-full py-3.5 bg-white text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] transition-colors duration-300">
-            Aperçu rapide
+            See Details
           </button>
         </div>
       </div>
@@ -335,7 +276,15 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
 // ============================================================
 // COLLECTION SECTION
 // ============================================================
-function CollectionSection({ collection, onOpen }: { collection: typeof collections[0]; onOpen: (p: Product) => void }) {
+type CollectionData = {
+  id: string;
+  title: string;
+  anchor: string;
+  description: string;
+  products: Product[];
+};
+
+function CollectionSection({ collection, onOpen }: { collection: CollectionData; onOpen: (p: Product) => void }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
@@ -397,7 +346,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   if (!product) return null;
 
   const handleAdd = () => {
-    const priceNumber = parseInt(product.price.replace(/\s/g, ''), 10);
+    const priceNumber = parseInt(String(product.price).replace(/[\s\u00a0]/g, ''), 10) || 0;
     addToCart({
       id: product.id,
       name: product.name,
@@ -490,11 +439,9 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
               <button onClick={handleAdd}
                 className={`w-full py-5 text-[9px] uppercase tracking-[0.45em] font-black flex items-center justify-center gap-4 transition-all duration-500 ${added ? 'bg-[#D4AF37] text-black' : 'bg-stone-900 text-white hover:bg-[#D4AF37] hover:text-black'}`}>
                 <ShoppingBag size={14} strokeWidth={1.5} />
-                {added ? '✓ Ajouté au panier' : 'Ajouter au panier'}
+                {added ? '✓ Added To Cart' : 'Add To Cart '}
               </button>
-              <p className="text-center text-[9px] uppercase tracking-widest text-stone-300 font-medium">
-                Livraison offerte à Abidjan · 24/48h
-              </p>
+              
             </div>
           </div>
         </motion.div>
@@ -503,12 +450,58 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
   );
 }
 
-
-
-
+// ============================================================
 // PAGE PRINCIPALE
+// ============================================================
 export default function MenPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [collections, setCollections] = useState<CollectionData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .ilike('category', 'Homme%')
+        .eq('is_available', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Erreur chargement produits:', error.message);
+        setLoading(false);
+        return;
+      }
+
+      // Normalise chaque produit : price en string, images en tableau
+      const normalized = (data || []).map((p: any) => ({
+        ...p,
+        price: typeof p.price === 'number'
+          ? p.price.toLocaleString('fr-FR')
+          : p.price,
+        currency: 'FCFA',
+        images: Array.isArray(p.images) && p.images.length > 0
+          ? p.images
+          : p.image_url
+          ? [p.image_url]
+          : [],
+      }));
+
+      // Regroupe par collection selon COLLECTION_META
+      const built: CollectionData[] = COLLECTION_META.map(meta => ({
+        id: meta.id,
+        title: meta.title,
+        anchor: meta.anchor,
+        description: meta.description,
+        products: normalized.filter((p: Product) => p.category === meta.supabaseKey),
+      })).filter(col => col.products.length > 0);
+
+      setCollections(built);
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <main className="bg-white min-h-screen font-sans antialiased">
@@ -519,16 +512,25 @@ export default function MenPage() {
       {/* WELCOME */}
       <WelcomeStrip />
 
-    
-
       {/* COLLECTIONS */}
       <section id="collections" className="max-w-[1500px] mx-auto px-8 md:px-20 scroll-mt-24">
-        {collections.map(col => (
-          <CollectionSection key={col.id} collection={col} onOpen={setSelectedProduct} />
-        ))}
+        {loading ? (
+          <div className="flex items-center justify-center py-32">
+            <div className="flex flex-col items-center gap-4 text-stone-400">
+              <div className="w-8 h-8 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+              <p className="text-[10px] uppercase tracking-[0.4em] font-light">Chargement...</p>
+            </div>
+          </div>
+        ) : collections.length === 0 ? (
+          <div className="flex items-center justify-center py-32">
+            <p className="text-stone-300 text-sm font-light tracking-widest uppercase">Aucun produit disponible</p>
+          </div>
+        ) : (
+          collections.map(col => (
+            <CollectionSection key={col.id} collection={col} onOpen={setSelectedProduct} />
+          ))
+        )}
       </section>
-
-
 
       {/* MODAL */}
       {selectedProduct && (
