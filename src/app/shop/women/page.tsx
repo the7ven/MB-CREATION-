@@ -93,7 +93,7 @@ function HeroSlider() {
   const slide = heroSlides[current];
 
   return (
-    <section className="relative h-[90vh] w-full overflow-hidden bg-black">
+    <section className="relative h-[95vh] w-full overflow-hidden bg-black">
       <AnimatePresence mode="wait">
         <motion.div
           key={slide.id}
