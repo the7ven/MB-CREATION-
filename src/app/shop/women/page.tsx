@@ -107,7 +107,7 @@ function HeroSlider() {
             src={slide.src}
             alt={slide.title}
             className="w-full h-full object-cover"
-            style={{ filter: 'brightness(0.35) contrast(1.1)' }}
+            style={{ filter: 'brightness(0.55) contrast(1.1)' }}
           />
         </motion.div>
       </AnimatePresence>
