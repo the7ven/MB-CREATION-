@@ -36,29 +36,28 @@ const heroSlides = [
   },
 ];
 
-// Collections statiques — structure & titres seulement
-// Les produits sont chargés dynamiquement depuis Supabase
+
 const COLLECTION_META = [
   {
     id: 'icone',
     supabaseKey: 'Femme · Icone',
     title: 'Icone',
     anchor: 'icone',
-    description: "La quintessence du tailoring féminin. Coupes italiennes, soies de mûrier, velours de nuit — des pièces intemporelles.",
+    description: "The quintessence of feminine tailoring. African excellence, mulberry silks, and midnight velvet — timeless silhouettes.",
   },
   {
     id: 'icone2',
     supabaseKey: 'Femme · Icone 2.0',
     title: 'Icone 2.0',
     anchor: 'icone-2',
-    description: "La vision futuriste du costume féminin. Matériaux techniques, coupes ultra-slim, finitions architecturales.",
+    description: "A futuristic vision of the feminine power suit. Technical fabrics, sharp ultra-slim cuts, and architectural structure.",
   },
   {
     id: 'africa',
     supabaseKey: 'Femme · Made of Africa',
     title: 'Made of Africa',
     anchor: 'made-of-africa',
-    description: "L'héritage africain revisité — Bogolan, Kente et Ndop fusionnent avec soie et taffetas pour des silhouettes uniques.",
+    description: "African heritage reimagined — Bogolan, Kente, and Ndop fuse with silk and taffeta into majestic feminine silhouettes.",
   },
 ];
 
@@ -185,20 +184,20 @@ function WelcomeStrip() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-5">
-            Univers FEMININ
+            WOMEN'S UNIVERSE 
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-black leading-tight mb-6">
-            Bienvenue chez<br />MB-Creation
+            Welcome To<br />MB-Creation
           </h2>
           <div className="h-px w-12 bg-[#D4AF37] mb-6" />
           <p className="text-stone-400 text-sm font-light leading-relaxed max-w-md">
-            De l'héritage africain au tailoring contemporain, chaque pièce MB-Creation est conçue pour la femme qui refuse de choisir entre identité et élégance. Matières nobles, coupes précises, âme authentique.
+          Immerse yourself in the sophisticated world of MB-Creation, where every piece tells a story of reinvented tradition. Our collections celebrate femininity through bold cuts, noble fabrics, and a vibrant color palette that captures the light of Africa.
           </p>
           <motion.a
             href="#collections"
             className="inline-flex items-center gap-3 mt-8 text-[9px] uppercase tracking-[0.4em] font-black text-stone-900 border-b border-stone-200 pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group"
           >
-            Explorer les collections
+            Discover the collections
             <ArrowRight size={12} strokeWidth={2} className="group-hover:translate-x-1 transition-transform duration-300" />
           </motion.a>
         </motion.div>
@@ -259,7 +258,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
         <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
           <button onClick={() => onOpen(product)}
             className="w-full py-3.5 bg-white text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] transition-colors duration-300">
-            Aperçu rapide
+           See Details
           </button>
         </div>
       </div>
@@ -442,11 +441,9 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
               <button onClick={handleAdd}
                 className={`w-full py-5 text-[9px] uppercase tracking-[0.45em] font-black flex items-center justify-center gap-4 transition-all duration-500 ${added ? 'bg-[#D4AF37] text-black' : 'bg-stone-900 text-white hover:bg-[#D4AF37] hover:text-black'}`}>
                 <ShoppingBag size={14} strokeWidth={1.5} />
-                {added ? '✓ Ajouté au panier' : 'Ajouter au panier'}
+                {added ? '✓ ADDED TO CART' : 'ADD TO CART'}
               </button>
-              <p className="text-center text-[9px] uppercase tracking-widest text-stone-300 font-medium">
-                Livraison offerte à Abidjan · 24/48h
-              </p>
+             
             </div>
           </div>
         </motion.div>
