@@ -17,21 +17,21 @@ const heroSlides = [
     id: 1,
     title: 'Made of\nAfrica',
     description: 'Collection focusing on premium African fabrics — Bogolan, Kente, Ndop combined with silk and taffeta to create original and unique looks.',
-    src: 'https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?q=80&w=2000&auto=format&fit=crop',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/banner11.png',
     accent: 'Collection Été',
   },
   {
     id: 2,
     title: 'Icone &\nIcone 2.0',
     description: 'Fresh, youthful and modern looks suitable for day and night. African fabric crafted and adapted to the environment and temperate climate.',
-    src: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000&auto=format&fit=crop',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/banner10.png',
     accent: 'Tailoring Contemporain',
   },
   {
     id: 3,
     title: 'New\nCollection 2025',
     description: 'Root Black & Root White — a comeback marked by refined elegance. African fabric combined with sustainable materials for timeless urban chic clothing.',
-    src: 'https://images.unsplash.com/photo-1593032465175-481ac7f402a1?q=80&w=2000&auto=format&fit=crop',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/banner5%20(1).png',
     accent: 'Nouveauté 2025',
   },
 ];
@@ -444,9 +444,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
                 <ShoppingBag size={14} strokeWidth={1.5} />
                 {added ? '✓ Ajouté au panier' : 'Ajouter au panier'}
               </button>
-              <p className="text-center text-[9px] uppercase tracking-widest text-stone-300 font-medium">
-                Livraison offerte à Abidjan · 24/48h
-              </p>
+             
             </div>
           </div>
         </motion.div>
