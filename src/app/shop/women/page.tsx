@@ -17,21 +17,21 @@ const heroSlides = [
     id: 1,
     title: 'Made of\nAfrica',
     description: 'Collection focusing on premium African fabrics — Bogolan, Kente, Ndop combined with silk and taffeta to create original and unique looks.',
-    src: 'https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?q=80&w=2000&auto=format&fit=crop',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/banner5%20(1).png',
     accent: 'Collection Été',
   },
   {
     id: 2,
     title: 'Icone &\nIcone 2.0',
     description: 'Fresh, youthful and modern looks suitable for day and night. African fabric crafted and adapted to the environment and temperate climate.',
-    src: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000&auto=format&fit=crop',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/banner10.png',
     accent: 'Tailoring Contemporain',
   },
   {
     id: 3,
     title: 'New\nCollection 2025',
     description: 'Root Black & Root White — a comeback marked by refined elegance. African fabric combined with sustainable materials for timeless urban chic clothing.',
-    src: 'https://images.unsplash.com/photo-1593032465175-481ac7f402a1?q=80&w=2000&auto=format&fit=crop',
+    src: 'https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/banner11.png',
     accent: 'Nouveauté 2025',
   },
 ];
@@ -92,7 +92,7 @@ function HeroSlider() {
   const slide = heroSlides[current];
 
   return (
-    <section className="relative h-[90vh] w-full overflow-hidden bg-black">
+    <section className="relative h-[95vh] w-full overflow-hidden bg-black">
       <AnimatePresence mode="wait">
         <motion.div
           key={slide.id}
@@ -106,7 +106,7 @@ function HeroSlider() {
             src={slide.src}
             alt={slide.title}
             className="w-full h-full object-cover"
-            style={{ filter: 'brightness(0.35) contrast(1.1)' }}
+            style={{ filter: 'brightness(0.55) contrast(1.1)' }}
           />
         </motion.div>
       </AnimatePresence>
@@ -136,7 +136,7 @@ function HeroSlider() {
               {slide.description}
             </p>
             <a href="#collections" className="inline-flex items-center gap-3 px-10 py-4 bg-[#D4AF37] text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-white transition-colors duration-500">
-              Découvrir <ArrowRight size={12} strokeWidth={2} />
+              Discover <ArrowRight size={12} strokeWidth={2} />
             </a>
           </motion.div>
         </AnimatePresence>
@@ -210,10 +210,10 @@ function WelcomeStrip() {
           className="grid grid-cols-2 gap-4 h-96"
         >
           <div className="relative overflow-hidden bg-stone-100">
-            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
+            <img src="https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/MB-Crea-pic%20(1).jpg" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
           </div>
           <div className="relative overflow-hidden bg-stone-100 mt-8">
-            <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=600" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
+            <img src="https://qoghqsbbsqjgjibhlpbp.supabase.co/storage/v1/object/public/mb-creation%20article/MB-Crea-pic%20(23).jpg" alt="" className="w-full h-full object-cover" style={{ filter: 'sepia(0.08)' }} />
           </div>
         </motion.div>
       </div>
