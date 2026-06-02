@@ -21,7 +21,7 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-white text-lg leading-relaxed font-light max-w-xs">
-              L'excellence du savoir-faire artisanal au service de l'élégance contemporaine. Chaque pièce est une œuvre unique conçue pour l'élite.
+              The excellence of artisanal craftsmanship serving contemporary elegance. Each piece is a unique work designed for the elite.
             </p>
             {/* Icônes réseaux sociaux */}
             <div className="flex items-center gap-5 pt-2">
@@ -72,12 +72,11 @@ export default function Footer() {
 
           {/* Colonne 3 : Services */}
           <div>
-            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">La Maison</h3>
+            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">The House</h3>
             <ul className="space-y-4">
               {[
-                { label: "Notre histoire", href:"/pages/about" },
+                { label: "Our Story", href: "/pages/about" },
                 { label: "Contact", href: "/contact" },
-                
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
@@ -90,18 +89,18 @@ export default function Footer() {
 
           {/* Colonne 4 : Newsletter */}
           <div className="space-y-6">
-            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-2">Lettres Précieuses</h3>
+            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-2">Precious Letters</h3>
             <p className="text-white/40 text-lg font-light italic">
-              Recevez en avant-première nos nouvelles collections et offres exclusives.
+              Receive our newest collections and exclusive offers in advance.
             </p>
             <div className="flex flex-col space-y-4">
               <input 
                 type="email" 
-                placeholder="Votre adresse e-mail" 
+                placeholder="Your email address" 
                 className="bg-transparent border-b border-white/10 py-3 text-lg focus:border-[#D4AF37] outline-none transition-colors text-white placeholder:text-white/50"
               />
               <button className="bg-[#D4AF37] text-black text-[10px] uppercase tracking-[0.3em] font-black py-4 hover:bg-white transition-colors duration-500">
-                S'inscrire
+                Subscribe
               </button>
             </div>
           </div>
@@ -117,12 +116,12 @@ export default function Footer() {
 
         {/* --- SECTION BASSE : COPYRIGHT & LEGAL --- */}
         <div className="flex flex-col md:row justify-between items-center pt-10 border-t border-white/5 text-[10px] text-white/30 tracking-widest uppercase gap-4">
-          <p>© 2026 <span className="text-white/60 font-bold">MB·Creation</span>. Tous droits réservés.</p>
+          <p>© 2026 <span className="text-white/60 font-bold">MB·Creation</span>. All rights reserved.</p>
           <div className="flex gap-8">
             <Link href="/admin" className="hover:text-[#D4AF37]">Admin</Link>
-            <Link href="#" className="hover:text-[#D4AF37]">Mentions Légales</Link>
-            <Link href="#" className="hover:text-[#D4AF37]">Politique de Confidentialité</Link>
-            <Link href="#" className="hover:text-[#D4AF37]">CGV</Link>
+            <Link href="#" className="hover:text-[#D4AF37]">Legal Notice</Link>
+            <Link href="#" className="hover:text-[#D4AF37]">Privacy Policy</Link>
+            <Link href="#" className="hover:text-[#D4AF37]">Terms</Link>
           </div>
         </div>
       </div>

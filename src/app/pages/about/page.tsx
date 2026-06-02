@@ -12,38 +12,38 @@ const story = [
   {
     id: 1,
     year: '2017',
-    label: 'Fondation',
-    title: 'Une passion devenue vision',
-    text: "MB-Creation naît en 2017 sous l'impulsion de Manuella Bufang, créatrice passionnée de mode depuis l'adolescence. Profondément engagée dans le développement social et culturel du Cameroun, elle décide de fusionner ses deux passions : la couture et l'Afrique.",
+    label: 'Foundation',
+    title: 'A passion turned into a vision',
+    text: "MB-Creation was born in 2017 from the drive of Manuella Bufang, a fashion creator passionate since her teenage years. Deeply committed to the social and cultural development of Cameroon, she decided to merge her two passions: sewing and Africa.",
   },
   {
     id: 2,
     year: '∞',
-    label: 'Philosophie',
-    title: 'Des racines qui prolifèrent',
-    text: "Le logo de la marque, une racine en expansion, incarne toute la philosophie de MB-Creation : se reconnecter à notre essence culturelle et la partager avec le monde. Chaque pièce est une invitation à porter son identité avec fierté et à célébrer la richesse du patrimoine africain.",
+    label: 'Philosophy',
+    title: 'Roots that grow',
+    text: "The brand logo, an expanding root, embodies MB-Creation's philosophy: reconnect to our cultural essence and share it with the world. Each piece invites you to wear your identity with pride and celebrate Africa's rich heritage.",
   },
   {
     id: 3,
     year: '✦',
-    label: 'Matière & Territoire',
+    label: 'Material & Territory',
     title: 'Made in Cameroon',
-    text: "La production est ancrée au Cameroun, valorisant le pagne africain comme matériau fondateur de chaque création. En choisissant des matériaux locaux durables et des techniques artisanales, MB-Creation crée de l'emploi et préserve un savoir-faire tout en visant l'excellence.",
+    text: "Production is rooted in Cameroon, elevating African fabric as the founding material of every creation. By choosing sustainable local materials and artisanal techniques, MB-Creation creates jobs and preserves craftsmanship while pursuing excellence.",
   },
   {
     id: 4,
     year: '✦',
-    label: 'Identité',
-    title: 'L\'unicité comme signature',
-    text: "Audace des motifs, modernité des coupes, fusion des cultures — les collections de Manuella Bufang reflètent une identité multiculturelle assumée. Chaque vêtement raconte une histoire, invite son porteur à se démarquer et à célébrer sa singularité dans un monde qui s'uniformise.",
+    label: 'Identity',
+    title: 'Uniqueness as a signature',
+    text: "Bold patterns, modern cuts, cultural fusion — Manuella Bufang's collections reflect a proud multicultural identity. Each garment tells a story, invites its wearer to stand out, and celebrates individuality in a world that often looks the same.",
   },
 ];
 
 const values = [
-  { icon: '◈', title: 'Authenticité', desc: 'Des créations ancrées dans la culture africaine, portées vers l\'universalité.' },
-  { icon: '◇', title: 'Artisanat', desc: 'Techniques manuelles et matériaux locaux sélectionnés avec exigence.' },
-  { icon: '◉', title: 'Singularité', desc: 'Chaque pièce est unique. Chaque client, encore plus.' },
-  { icon: '◈', title: 'Éthique', desc: 'Production responsable, emploi local, respect des hommes et de la matière.' },
+  { icon: '◈', title: 'Authenticity', desc: 'Creations rooted in African culture, carried toward universality.' },
+  { icon: '◇', title: 'Craftsmanship', desc: 'Hand techniques and local materials selected with care.' },
+  { icon: '◉', title: 'Uniqueness', desc: 'Each piece is unique. Each customer even more so.' },
+  { icon: '◈', title: 'Ethics', desc: 'Responsible production, local jobs, respect for people and materials.' },
 ];
 
 // ==========================================
@@ -183,7 +183,7 @@ export default function AboutPage() {
             <div className="flex items-center gap-5">
               <div className="h-px w-16 bg-[#D4AF37]/50" />
               <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.7em] font-light">
-                Maison de Couture · Depuis 2017
+                Fashion House · Since 2017
               </span>
               <div className="h-px w-16 bg-[#D4AF37]/50" />
             </div>
@@ -193,7 +193,7 @@ export default function AboutPage() {
               className="font-cormorant text-white text-6xl md:text-[7rem] lg:text-[9rem] font-light italic tracking-[-0.02em] leading-none"
               style={{ textShadow: '0 4px 60px rgba(0,0,0,0.4)' }}
             >
-              Notre Histoire
+              Our Story
             </h1>
 
             {/* Tagline */}
@@ -216,7 +216,7 @@ export default function AboutPage() {
             className="w-px h-12 bg-gradient-to-b from-[#D4AF37]/60 to-transparent"
           />
           <span className="font-cormorant text-white/25 text-xs uppercase tracking-[0.5em] font-light">
-            Défiler
+            Scroll
           </span>
         </motion.div>
       </section>
@@ -232,13 +232,13 @@ export default function AboutPage() {
             <div className="h-px w-12 bg-[#D4AF37]/40" />
           </div>
           <blockquote className="font-cormorant text-3xl md:text-5xl font-light italic text-stone-800 leading-[1.3] tracking-tight">
-            "Reconnecter l'Afrique à son essence,<br />
-            <span className="text-[#D4AF37]">partager sa beauté avec le monde.</span>"
+            "Reconnect Africa to its essence,<br />
+            <span className="text-[#D4AF37]">share its beauty with the world.</span>"
           </blockquote>
           <div className="mt-10 flex items-center justify-center gap-4">
             <div className="h-px w-8 bg-[#D4AF37]/40" />
             <span className="font-cormorant text-stone-400 text-sm uppercase tracking-[0.45em] font-light">
-              Manuella Bufang — Fondatrice & Créatrice
+              Manuella Bufang — Founder & Designer
             </span>
             <div className="h-px w-8 bg-[#D4AF37]/40" />
           </div>
@@ -269,7 +269,7 @@ export default function AboutPage() {
               {/* Badge flottant */}
               <div className="absolute -bottom-6 -right-6 z-20 bg-[#D4AF37] px-6 py-4">
                 <span className="font-cormorant text-stone-900 text-xs uppercase tracking-[0.4em] font-light block">
-                  Fondatrice
+                  Founder
                 </span>
                 <span className="font-cormorant text-stone-900 text-lg font-light italic">
                   Manuella Bufang
@@ -282,22 +282,22 @@ export default function AboutPage() {
           <FadeIn delay={0.25}>
             <div className="md:pt-12">
               <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light block mb-5">
-                La Créatrice
+                The Designer
               </span>
               <h2 className="font-cormorant text-4xl md:text-5xl font-light italic text-stone-900 leading-tight mb-8">
-                Une femme,<br />
-                <span className="text-[#D4AF37]">un héritage,</span><br />
-                une marque.
+                One woman,<br />
+                <span className="text-[#D4AF37]">a heritage,</span><br />
+                a brand.
               </h2>
               <div className="space-y-5 font-cormorant text-stone-500 text-base md:text-lg font-light leading-relaxed">
                 <p>
-                  Passionnée de mode depuis son adolescence, Manuella Bufang a grandi entre deux mondes — l'élégance contemporaine et la richesse culturelle du Cameroun, son pays natal.
+                  Passionate about fashion since her teenage years, Manuella Bufang grew up between two worlds — contemporary elegance and the cultural richness of Cameroon, her home country.
                 </p>
                 <p>
-                  Engagée dans le développement social et culturel de l'Afrique à travers des œuvres caritatives et des événements culturels, elle décide de faire de son art un vecteur d'identité et de fierté.
+                  Committed to Africa's social and cultural development through charity work and cultural events, she chose to make her art a vehicle of identity and pride.
                 </p>
                 <p>
-                  Après plusieurs étapes créatives — B-Wear by M, Unik, Icône, Authentic — la marque trouve finalement son nom définitif : <strong className="text-stone-800 font-normal">MB-Creation</strong>.
+                  After several creative phases — B-Wear by M, Unik, Icône, Authentic — the brand finally settled on its definitive name: <strong className="text-stone-800 font-normal">MB-Creation</strong>.
                 </p>
               </div>
             </div>
@@ -315,12 +315,12 @@ export default function AboutPage() {
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-px w-10 bg-[#D4AF37]" />
                 <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light">
-                  L'histoire
+                  The story
                 </span>
               </div>
               <h2 className="font-cormorant text-4xl md:text-6xl font-light italic text-stone-900 leading-tight">
-                De la racine<br />
-                <span className="text-[#D4AF37]">à la couronne</span>
+                From root<br />
+                <span className="text-[#D4AF37]">to crown</span>
               </h2>
             </div>
           </FadeIn>
@@ -343,15 +343,15 @@ export default function AboutPage() {
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-px w-10 bg-[#D4AF37]" />
                 <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light">
-                  Ce qui nous définit
+                  What defines us
                 </span>
               </div>
               <h2 className="font-cormorant text-4xl md:text-6xl font-light italic text-stone-900 leading-tight">
-                Nos valeurs
+                Our values
               </h2>
             </div>
             <p className="font-cormorant text-stone-400 text-base md:text-lg font-light leading-relaxed max-w-xs md:text-right">
-              Les principes qui guident chaque décision, chaque coupe, chaque pièce.
+              Principles that guide every decision, every cut, every piece.
             </p>
           </div>
         </FadeIn>
@@ -405,12 +405,12 @@ export default function AboutPage() {
             </div>
 
             <h2 className="font-cormorant text-white text-4xl md:text-6xl font-light italic leading-tight">
-              Portez une histoire.<br />
-              <span className="text-[#D4AF37]">Racontez la vôtre.</span>
+              Wear a story.<br />
+              <span className="text-[#D4AF37]">Tell your own.</span>
             </h2>
 
             <p className="font-cormorant text-white/40 text-base md:text-lg font-light tracking-wide leading-relaxed">
-              Découvrez les collections qui célèbrent l'identité africaine et l'élégance contemporaine.
+              Discover collections that celebrate African identity and contemporary elegance.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-6 mt-4">
@@ -418,13 +418,13 @@ export default function AboutPage() {
                 href="/shop"
                 className="font-cormorant inline-flex items-center gap-4 px-12 py-5 bg-[#D4AF37] text-stone-900 text-sm uppercase tracking-[0.4em] font-light hover:bg-[#C9A84C] transition-colors duration-300"
               >
-                Explorer les collections
+                Explore collections
               </a>
               <a
                 href="/contact"
                 className="font-cormorant inline-flex items-center gap-3 text-white/50 text-sm uppercase tracking-[0.4em] font-light hover:text-[#D4AF37] transition-colors duration-300 border-b border-white/20 hover:border-[#D4AF37] pb-1"
               >
-                Nous contacter
+                Contact us
               </a>
             </div>
           </div>

@@ -111,9 +111,9 @@ const contactInfos = [
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
       </svg>
     ),
-    label: 'Atelier',
-    value: 'Douala, Cameroun',
-    sub: 'Sur rendez-vous uniquement',
+    label: 'Studio',
+    value: 'Douala, Cameroon',
+    sub: 'By appointment only',
   },
   {
     icon: (
@@ -121,9 +121,9 @@ const contactInfos = [
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
       </svg>
     ),
-    label: 'Téléphone',
+    label: 'Phone',
     value: '+237 6XX XXX XXX',
-    sub: 'Lun – Sam, 9h – 18h',
+    sub: 'Mon–Sat, 9am–6pm',
   },
   {
     icon: (
@@ -133,7 +133,7 @@ const contactInfos = [
     ),
     label: 'Email',
     value: 'contact@mb-creation.com',
-    sub: 'Réponse sous 24h',
+    sub: 'Response within 24h',
   },
   {
     icon: (
@@ -143,17 +143,17 @@ const contactInfos = [
     ),
     label: 'Instagram',
     value: '@mbcreationofficiel',
-    sub: 'Suivez nos coulisses',
+    sub: 'Follow our behind-the-scenes',
     href: 'https://www.instagram.com/mbcreationofficiel/profilecard/?igsh=c29zeXR1ZjdobXFo',
   },
 ];
 
 const subjects = [
-  'Commande & Suivi',
-  'Sur-mesure & Personnalisation',
-  'Presse & Partenariats',
-  'Retour & Échange',
-  'Autre demande',
+  'Order & Tracking',
+  'Tailoring & Customization',
+  'Press & Partnerships',
+  'Returns & Exchanges',
+  'Other request',
 ];
 
 export default function ContactPage() {
@@ -218,7 +218,7 @@ export default function ContactPage() {
             transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="font-cormorant text-white text-5xl md:text-7xl font-light italic leading-none tracking-tight"
           >
-            Nous <span className="text-[#D4AF37]">Contacter</span>
+            Contact <span className="text-[#D4AF37]">Us</span>
           </motion.h1>
 
           <motion.p
@@ -227,7 +227,7 @@ export default function ContactPage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="font-cormorant text-white/40 text-base md:text-lg font-light tracking-widest max-w-md"
           >
-            Une question, une demande sur-mesure ou une collaboration — nous vous répondons avec soin.
+            A question, a custom request, or a collaboration — we answer with care.
           </motion.p>
         </div>
       </section>
@@ -241,12 +241,12 @@ export default function ContactPage() {
             <div className="flex items-center gap-4 mb-3">
               <div className="h-px w-10 bg-[#D4AF37]" />
               <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light">
-                Formulaire
+                Contact Form
               </span>
             </div>
             <h2 className="font-cormorant text-3xl md:text-5xl font-light italic text-stone-900 mb-12 leading-tight">
-              Envoyez-nous<br />
-              <span className="text-[#D4AF37]">un message</span>
+              Send us<br />
+              <span className="text-[#D4AF37]">a message</span>
             </h2>
 
             <AnimatePresence mode="wait">
@@ -261,20 +261,20 @@ export default function ContactPage() {
                 >
                   {/* Nom / Prénom */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <Field label="Prénom" name="firstName" value={form.firstName} onChange={handleChange} required />
-                    <Field label="Nom" name="lastName" value={form.lastName} onChange={handleChange} required />
+                    <Field label="First name" name="firstName" value={form.firstName} onChange={handleChange} required />
+                    <Field label="Last name" name="lastName" value={form.lastName} onChange={handleChange} required />
                   </div>
 
                   {/* Email / Téléphone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <Field label="Adresse e-mail" type="email" name="email" value={form.email} onChange={handleChange} required />
-                    <Field label="Téléphone (optionnel)" type="tel" name="phone" value={form.phone} onChange={handleChange} />
+                    <Field label="Email address" type="email" name="email" value={form.email} onChange={handleChange} required />
+                    <Field label="Phone (optional)" type="tel" name="phone" value={form.phone} onChange={handleChange} />
                   </div>
 
                   {/* Sujet */}
                   <div className="space-y-4">
                     <span className="font-cormorant text-xs uppercase tracking-[0.45em] text-stone-400 font-light block">
-                      Sujet <span className="text-[#D4AF37]">*</span>
+                      Subject <span className="text-[#D4AF37]">*</span>
                     </span>
                     <div className="flex flex-wrap gap-3">
                       {subjects.map((s) => (
@@ -296,7 +296,7 @@ export default function ContactPage() {
 
                   {/* Message */}
                   <Field
-                    label="Votre message"
+                    label="Your message"
                     name="message"
                     value={form.message}
                     onChange={handleChange}
@@ -320,7 +320,7 @@ export default function ContactPage() {
                           className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4AF37] origin-left"
                         />
                       )}
-                      <span>{sending ? 'Envoi en cours…' : 'Envoyer le message'}</span>
+                      <span>{sending ? 'Sending…' : 'Send message'}</span>
                       {!sending && (
                         <svg
                           width="16"
@@ -339,7 +339,7 @@ export default function ContactPage() {
                       )}
                     </button>
                     <p className="font-cormorant text-stone-400 text-sm font-light mt-4">
-                      * Champs obligatoires. Vos données ne seront jamais partagées.
+                      * Required fields. Your data will never be shared.
                     </p>
                   </div>
                 </motion.form>
@@ -361,17 +361,17 @@ export default function ContactPage() {
                     <div className="h-px flex-1 bg-gradient-to-r from-[#D4AF37]/40 to-transparent" />
                   </div>
                   <h3 className="font-cormorant text-3xl md:text-4xl font-light italic text-stone-900 leading-tight">
-                    Message envoyé.<br />
-                    <span className="text-[#D4AF37]">Merci, {form.firstName}.</span>
+                    Message sent.<br />
+                    <span className="text-[#D4AF37]">Thank you, {form.firstName}.</span>
                   </h3>
                   <p className="font-cormorant text-stone-500 text-lg font-light leading-relaxed max-w-md">
-                    Nous avons bien reçu votre message et nous vous répondrons dans les meilleurs délais, généralement sous 24 heures.
+                    We have received your message and will reply as soon as possible, typically within 24 hours.
                   </p>
                   <button
                     onClick={() => { setSubmitted(false); setForm({ firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' }); }}
                     className="font-cormorant text-sm uppercase tracking-[0.4em] font-light text-stone-400 border-b border-stone-200 pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300"
                   >
-                    Envoyer un autre message
+                    Send another message
                   </button>
                 </motion.div>
               )}
@@ -384,11 +384,11 @@ export default function ContactPage() {
               <div className="flex items-center gap-4 mb-3">
                 <div className="h-px w-10 bg-[#D4AF37]" />
                 <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light">
-                  Coordonnées
+                  Contact details
                 </span>
               </div>
               <h2 className="font-cormorant text-2xl md:text-3xl font-light italic text-stone-900 mb-12 leading-tight">
-                Nos informations
+                Our information
               </h2>
             </FadeIn>
 
@@ -430,7 +430,7 @@ export default function ContactPage() {
             <FadeIn delay={0.6}>
               <div className="pt-10">
                 <span className="font-cormorant text-[10px] uppercase tracking-[0.45em] text-stone-400 font-light block mb-5">
-                  Suivez-nous
+                  Follow us
                 </span>
                 <div className="flex items-center gap-5">
                   <a
@@ -471,7 +471,7 @@ export default function ContactPage() {
               <div className="mt-12 border-l-2 border-[#D4AF37] pl-5 py-4">
                 <span className="text-[#D4AF37] text-lg block mb-2">✦</span>
                 <p className="font-cormorant text-stone-500 text-base font-light italic leading-relaxed">
-                  Pour toute demande de sur-mesure, nous vous invitons à prendre rendez-vous directement à l'atelier afin de bénéficier d'une consultation personnalisée.
+                  For any custom request, we invite you to book an appointment directly at the studio for a personalized consultation.
                 </p>
               </div>
             </FadeIn>
@@ -484,7 +484,7 @@ export default function ContactPage() {
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <FadeIn>
             <p className="font-cormorant text-stone-400 text-base font-light italic text-center md:text-left">
-              "Chaque vêtement MB-Creation raconte une histoire. La vôtre commence ici."
+              "Every MB-Creation garment tells a story. Yours begins here."
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
