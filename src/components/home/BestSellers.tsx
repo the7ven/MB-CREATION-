@@ -349,7 +349,7 @@ export default function BestSellers() {
           </div>
 
           <motion.a
-            href="/shop/trending"
+            href="#featured-categories"
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -397,7 +397,7 @@ export default function BestSellers() {
           className="md:hidden flex justify-center mt-14"
         >
           <a
-            href="/shop/trending"
+            href="#featured-categories"
             className="px-12 py-5 border border-stone-900/20 text-stone-900 text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-stone-900 hover:text-white transition-all duration-500 flex items-center gap-3"
           >
            Discover the Collection

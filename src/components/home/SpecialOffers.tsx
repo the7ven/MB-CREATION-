@@ -127,7 +127,7 @@ export default function SpecialOffers() {
 
           {/* Single CTA → Trending */}
           <Link
-            href="/shop/trending"
+            href="#featured-categories"
             className="inline-flex items-center gap-3 px-8 py-4 bg-[#D4AF37] text-[#0e0d0b] text-[10px] uppercase tracking-[0.35em] font-black hover:bg-[#f5f0e8] transition-colors duration-500 shadow-xl"
           >
             View Special Offers

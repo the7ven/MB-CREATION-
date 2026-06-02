@@ -42,7 +42,7 @@ export default function HeroSlideContent({ slide }: SlideContentProps) {
       {/* Boutons d'Action */}
       <div className="flex flex-col sm:flex-row items-start gap-6">
         <Link
-          href="/shop/trending"
+          href="#featured-categories"
           className="px-12 py-5 bg-[#D4AF37] text-black text-[10px] uppercase tracking-[0.3em] font-black hover:bg-stone-900 hover:text-white transition-colors duration-500 shadow-xl"
         >
          Discover the Collection

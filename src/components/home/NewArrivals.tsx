@@ -384,7 +384,7 @@ export default function NewArrivals() {
               <p className="text-[11px] tracking-[0.18em] uppercase text-[#B8AFA0] font-extralight leading-[2] mb-6">
                The expression of know-how through our latest high fashion pieces
               </p>
-              <a href="/shop/trending" className="group/cta inline-flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase text-[#C9A84C] font-light transition-colors hover:text-[#1A1714]">
+              <a href="#featured-categories" className="group/cta inline-flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase text-[#C9A84C] font-light transition-colors hover:text-[#1A1714]">
                 Explore The Collection
                 <span className="inline-block w-6 h-[1px] bg-[#C9A84C] group-hover/cta:w-10 transition-all duration-400" />
               </a>
@@ -440,7 +440,7 @@ export default function NewArrivals() {
           <div className="flex items-center justify-between pt-10 border-t border-[#E8E2D9]">
             
 
-            <a href="/shop/trending" className="group/footer flex items-center gap-5">
+            <a href="#featured-categories" className="group/footer flex items-center gap-5">
               <span className="text-[10px] tracking-[0.45em] uppercase text-[#1A1714] font-light group-hover/footer:text-[#C9A84C] transition-colors duration-300">
                 Explore The Collection
               </span>

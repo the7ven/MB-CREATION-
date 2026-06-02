@@ -57,42 +57,42 @@ const menInches = [
 ];
 
 const kids = [
-  { age: '2 ans',  height: '86–92',   bust: '51–53', waist: '50–51', hips: '54–56' },
-  { age: '3 ans',  height: '93–98',   bust: '54–55', waist: '52–53', hips: '57–59' },
-  { age: '4 ans',  height: '99–104',  bust: '56–58', waist: '54–55', hips: '60–62' },
-  { age: '5 ans',  height: '105–110', bust: '59–61', waist: '56–57', hips: '63–65' },
-  { age: '6 ans',  height: '111–116', bust: '62–63', waist: '58–59', hips: '66–68' },
-  { age: '7 ans',  height: '117–122', bust: '64–66', waist: '60–61', hips: '69–71' },
-  { age: '8 ans',  height: '123–128', bust: '67–69', waist: '62–63', hips: '72–74' },
-  { age: '9 ans',  height: '129–134', bust: '70–72', waist: '64–65', hips: '75–77' },
-  { age: '10 ans', height: '135–140', bust: '73–75', waist: '66–67', hips: '78–80' },
-  { age: '11 ans', height: '141–146', bust: '76–78', waist: '68–69', hips: '81–83' },
-  { age: '12 ans', height: '147–152', bust: '79–81', waist: '70–72', hips: '84–86' },
+  { age: '2 yrs',  height: '86–92',   bust: '51–53', waist: '50–51', hips: '54–56' },
+  { age: '3 yrs',  height: '93–98',   bust: '54–55', waist: '52–53', hips: '57–59' },
+  { age: '4 yrs',  height: '99–104',  bust: '56–58', waist: '54–55', hips: '60–62' },
+  { age: '5 yrs',  height: '105–110', bust: '59–61', waist: '56–57', hips: '63–65' },
+  { age: '6 yrs',  height: '111–116', bust: '62–63', waist: '58–59', hips: '66–68' },
+  { age: '7 yrs',  height: '117–122', bust: '64–66', waist: '60–61', hips: '69–71' },
+  { age: '8 yrs',  height: '123–128', bust: '67–69', waist: '62–63', hips: '72–74' },
+  { age: '9 yrs',  height: '129–134', bust: '70–72', waist: '64–65', hips: '75–77' },
+  { age: '10 yrs', height: '135–140', bust: '73–75', waist: '66–67', hips: '78–80' },
+  { age: '11 yrs', height: '141–146', bust: '76–78', waist: '68–69', hips: '81–83' },
+  { age: '12 yrs', height: '147–152', bust: '79–81', waist: '70–72', hips: '84–86' },
 ];
 
 const measurementSteps = [
-  { n: '01', title: 'Poitrine',   desc: 'Mesurez autour de la partie la plus large de votre poitrine, en maintenant le mètre ruban à l\'horizontale.' },
-  { n: '02', title: 'Taille',     desc: 'Mesurez la partie la plus étroite de votre taille, généralement 2–3 cm au-dessus du nombril.' },
-  { n: '03', title: 'Hanches',    desc: 'Mesurez autour de la partie la plus large de vos hanches, environ 20 cm en dessous de la taille.' },
-  { n: '04', title: 'Conseil',    desc: 'En cas de doute entre deux tailles, optez toujours pour la plus grande pour un confort optimal.' },
+  { n: '01', title: 'Bust',   desc: 'Measure around the fullest part of your bust, keeping the tape horizontal.' },
+  { n: '02', title: 'Waist',  desc: 'Measure the narrowest part of your waist, usually 2–3 cm above the navel.' },
+  { n: '03', title: 'Hips',   desc: 'Measure around the fullest part of your hips, about 20 cm below the waist.' },
+  { n: '04', title: 'Tip',    desc: 'If you are between two sizes, choose the larger size for optimal comfort.' },
 ];
 
 const faqItems = [
   {
-    q: 'Que faire si mes mesures se situent entre deux tailles ?',
-    a: 'Si vos mesures se situent entre deux tailles, nous vous recommandons généralement de choisir la taille supérieure pour plus de confort, surtout pour les vêtements non extensibles.',
+    q: 'What should I do if my measurements fall between two sizes?',
+    a: 'If your measurements fall between two sizes, we generally recommend choosing the larger size for more comfort, especially for non-stretch garments.',
   },
   {
-    q: 'Les tailles MB-Creation correspondent-elles aux tailles standard ?',
-    a: 'Nos tailles suivent les normes européennes standard. Cependant, certaines coupes peuvent varier légèrement selon la collection. Référez-vous toujours aux mesures en centimètres pour la meilleure précision.',
+    q: 'Do MB-Creation sizes match standard sizes?',
+    a: 'Our sizes follow standard European sizing. However, some cuts may vary slightly by collection. Always refer to the exact centimeter measurements for the best accuracy.',
   },
   {
-    q: 'Comment prendre mes mesures seul(e) ?',
-    a: 'Pour des mesures précises, utilisez un mètre ruban souple. Tenez-vous droit, les bras le long du corps. Si possible, faites-vous aider par quelqu\'un pour plus d\'exactitude.',
+    q: 'How do I take my measurements alone?',
+    a: 'For accurate measurements, use a soft tape measure. Stand straight with your arms at your sides. If possible, ask someone to help for greater precision.',
   },
   {
-    q: 'Puis-je retourner un article qui ne convient pas ?',
-    a: 'Oui, MB-Creation accepte les retours sous 14 jours après réception. L\'article doit être dans son état d\'origine, non porté et avec toutes ses étiquettes. Consultez notre politique de retour pour plus de détails.',
+    q: 'Can I return an item that does not fit?',
+    a: 'Yes, MB-Creation accepts returns within 14 days of receipt. The item must be in its original condition, unworn and with all tags attached. Check our return policy for more details.',
   },
 ];
 
@@ -211,14 +211,14 @@ export default function SizeGuidePage() {
   const [unit, setUnit] = useState<Unit>('cm');
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: 'women', label: 'Femme' },
-    { id: 'men',   label: 'Homme' },
-    { id: 'kids',  label: 'Enfant' },
+    { id: 'women', label: 'Women' },
+    { id: 'men',   label: 'Men' },
+    { id: 'kids',  label: 'Kids' },
   ];
 
-  const womenHeaders  = ['FR/EU', 'US', 'Lettre', `Poitrine (${unit})`, `Taille (${unit})`, `Hanches (${unit})`];
-  const menHeaders    = ['FR/EU', 'US', 'Lettre', `Poitrine (${unit})`, `Taille (${unit})`, `Hanches (${unit})`];
-  const kidsHeaders   = ['Âge', 'Hauteur (cm)', 'Poitrine (cm)', 'Taille (cm)', 'Hanches (cm)'];
+  const womenHeaders  = ['FR/EU', 'US', 'Letter', `Bust (${unit})`, `Waist (${unit})`, `Hips (${unit})`];
+  const menHeaders    = ['FR/EU', 'US', 'Letter', `Bust (${unit})`, `Waist (${unit})`, `Hips (${unit})`];
+  const kidsHeaders   = ['Age', 'Height (cm)', 'Bust (cm)', 'Waist (cm)', 'Hips (cm)'];
 
   const womenRows  = (unit === 'cm' ? womenCm  : womenInches ).map(r => [r.frEu, r.us, r.letter, r.bust, r.waist, r.hips]);
   const menRows    = (unit === 'cm' ? menCm    : menInches   ).map(r => [r.frEu, r.us, r.letter, r.bust, r.waist, r.hips]);
@@ -258,7 +258,7 @@ export default function SizeGuidePage() {
             transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="font-cormorant text-white text-5xl md:text-7xl font-light italic leading-none tracking-tight"
           >
-            Guide des <span className="text-[#D4AF37]">Tailles</span>
+            Size <span className="text-[#D4AF37]">Guide</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -266,7 +266,7 @@ export default function SizeGuidePage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="font-cormorant text-white/40 text-base md:text-lg font-light tracking-widest max-w-md"
           >
-            Trouvez votre taille idéale pour une coupe parfaite.
+            Find your ideal size for a perfect fit.
           </motion.p>
         </div>
       </section>
@@ -277,12 +277,12 @@ export default function SizeGuidePage() {
           <div className="flex items-center gap-4 mb-16">
             <div className="h-px w-10 bg-[#D4AF37]" />
             <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light">
-              Avant de commencer
+              Before you begin
             </span>
           </div>
           <h2 className="font-cormorant text-3xl md:text-5xl font-light italic text-stone-900 mb-16 leading-tight">
-            Comment prendre<br />
-            <span className="text-[#D4AF37]">vos mesures</span>
+            How to take<br />
+            <span className="text-[#D4AF37]">your measurements</span>
           </h2>
         </FadeIn>
 
@@ -311,7 +311,7 @@ export default function SizeGuidePage() {
 
           <FadeIn>
             <h2 className="font-cormorant text-3xl md:text-5xl font-light italic text-stone-900 mb-16 leading-tight">
-              Tableaux des <span className="text-[#D4AF37]">tailles</span>
+              Size <span className="text-[#D4AF37]">charts</span>
             </h2>
           </FadeIn>
 
@@ -354,7 +354,7 @@ export default function SizeGuidePage() {
                 className="flex items-center gap-3 mb-8"
               >
                 <span className="font-cormorant text-stone-400 text-sm uppercase tracking-[0.35em] font-light">
-                  Unité :
+                  Unit:
                 </span>
                 {(['cm', 'inches'] as Unit[]).map((u) => (
                   <button
@@ -366,7 +366,7 @@ export default function SizeGuidePage() {
                         : 'bg-white text-stone-500 border-stone-200 hover:border-stone-400'
                     }`}
                   >
-                    {u === 'cm' ? 'Centimètres' : 'Pouces'}
+                    {u === 'cm' ? 'Centimeters' : 'Inches'}
                   </button>
                 ))}
               </motion.div>
@@ -402,8 +402,8 @@ export default function SizeGuidePage() {
               <span className="text-[#D4AF37] text-lg flex-shrink-0">✦</span>
               <p className="font-cormorant text-stone-500 text-base font-light leading-relaxed">
                 {activeTab === 'kids'
-                  ? 'Pour les vêtements enfants, nous recommandons de prioriser la taille selon la hauteur plutôt que l\'âge, la croissance pouvant varier considérablement d\'un enfant à l\'autre.'
-                  : 'Ces mesures sont données à titre indicatif. Pour un ajustement parfait, référez-vous aux dimensions spécifiques indiquées sur chaque produit.'}
+                  ? 'For kids clothing, we recommend prioritizing size based on height rather than age, as growth can vary greatly from child to child.'
+                  : 'These measurements are indicative only. For the best fit, refer to the specific product dimensions listed for each item.'}
               </p>
             </motion.div>
           </AnimatePresence>
@@ -416,11 +416,11 @@ export default function SizeGuidePage() {
           <div className="flex items-center gap-4 mb-4">
             <div className="h-px w-10 bg-[#D4AF37]" />
             <span className="font-cormorant text-[#D4AF37] text-xs uppercase tracking-[0.55em] font-light">
-              Questions fréquentes
+              Frequently Asked Questions
             </span>
           </div>
           <h2 className="font-cormorant text-3xl md:text-5xl font-light italic text-stone-900 mb-14 leading-tight">
-            Vous avez des <span className="text-[#D4AF37]">questions ?</span>
+            Have <span className="text-[#D4AF37]">questions?</span>
           </h2>
         </FadeIn>
 
@@ -454,21 +454,21 @@ export default function SizeGuidePage() {
               <div className="h-px w-10 bg-[#D4AF37]/40" />
             </div>
             <h2 className="font-cormorant text-white text-3xl md:text-5xl font-light italic leading-tight">
-              Votre taille trouvée ?<br />
-              <span className="text-[#D4AF37]">Découvrez la collection.</span>
+              Found your size?<br />
+              <span className="text-[#D4AF37]">Discover the collection.</span>
             </h2>
             <div className="flex flex-col sm:flex-row items-center gap-5 mt-2">
               <a
-                href="/shop"
+                href="/home#featured-categories"
                 className="font-cormorant inline-flex items-center gap-3 px-12 py-5 bg-[#D4AF37] text-stone-900 text-sm uppercase tracking-[0.4em] font-light hover:bg-[#C9A84C] transition-colors duration-300"
               >
-                Explorer la collection
+                Explore the collection
               </a>
               <a
                 href="/contact"
                 className="font-cormorant text-white/50 text-sm uppercase tracking-[0.4em] font-light border-b border-white/20 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 pb-1"
               >
-                Besoin d'aide ?
+                Need help?
               </a>
             </div>
           </div>

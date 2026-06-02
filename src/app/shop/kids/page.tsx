@@ -13,23 +13,23 @@ const heroSlides = [
   {
     id: 1,
     title: 'Mini\nRoyals',
-    description: "Des tenues pensées pour les petits princes et princesses — tissus africains authentiques, coupes confortables et styles qui font briller les enfants.",
+    description: "Outfits designed for little princes and princesses — authentic African fabrics, comfortable cuts, and styles that make kids shine.",
     src: 'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?q=80&w=2000&auto=format&fit=crop',
-    accent: 'Collection Enfant',
+    accent: 'Kids Collection',
   },
   {
     id: 2,
-    title: "Couleurs\nd'Afrique",
-    description: "Kente, Bogolan et Ndop revisités en mini versions. Des pièces joyeuses qui racontent l'histoire du continent aux générations futures.",
+    title: "African\nColors",
+    description: "Kente, Bogolan and Ndop reimagined in mini versions. Joyful pieces that carry the continent's story to the next generation.",
     src: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=2000&auto=format&fit=crop',
-    accent: 'Héritage & Jeunesse',
+    accent: 'Heritage & Youth',
   },
   {
     id: 3,
     title: 'New\nGeneration',
-    description: "Confort, style et authenticité — notre collection 2025 pour enfants allie matières naturelles et coupes modernes pour les aventuriers de demain.",
+    description: "Comfort, style and authenticity — our 2025 kids collection blends natural fabrics with modern cuts for tomorrow's little explorers.",
     src: 'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?q=80&w=2000&auto=format&fit=crop',
-    accent: 'Nouveauté 2025',
+    accent: 'New 2025',
   },
 ];
 
@@ -41,7 +41,7 @@ const COLLECTION_META = [
     supabaseKey: 'Enfant · Made of Africa',
     title: 'Made of Africa',
     anchor: 'made-of-africa',
-    description: "L'héritage africain revisité — Bogolan, Kente et Ndop fusionnent avec soie et taffetas pour des silhouettes uniques.",
+    description: "African heritage reimagined — Bogolan, Kente and Ndop blend with silk and taffeta for unique silhouettes.",
   }
 ];
 
@@ -118,7 +118,7 @@ function HeroSlider() {
               {slide.description}
             </p>
             <a href="#collections" className="inline-flex items-center gap-3 px-10 py-4 bg-[#D4AF37] text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-white transition-colors duration-500">
-              Découvrir <ArrowRight size={12} strokeWidth={2} />
+              Discover <ArrowRight size={12} strokeWidth={2} />
             </a>
           </motion.div>
         </AnimatePresence>
@@ -164,20 +164,20 @@ function WelcomeStrip() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.6em] font-bold block mb-5">
-            Univers Enfant
+            Kids Universe
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-black leading-tight mb-6">
-            Bienvenue chez<br />MB-Creation Kids
+            Welcome to<br />MB-Creation Kids
           </h2>
           <div className="h-px w-12 bg-[#D4AF37] mb-6" />
           <p className="text-stone-400 text-sm font-light leading-relaxed max-w-md">
-            De l'héritage africain aux silhouettes contemporaines, chaque pièce MB-Creation Kids est conçue pour les petits qui portent l'avenir. Matières douces, coupes libres, âme africaine.
+            From African heritage to contemporary silhouettes, every MB-Creation Kids piece is made for the little ones carrying the future. Soft fabrics, relaxed cuts, and an African soul.
           </p>
           <motion.a
             href="#collections"
             className="inline-flex items-center gap-3 mt-8 text-[9px] uppercase tracking-[0.4em] font-black text-stone-900 border-b border-stone-200 pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group"
           >
-            Explorer les collections
+            Explore collections
             <ArrowRight size={12} strokeWidth={2} className="group-hover:translate-x-1 transition-transform duration-300" />
           </motion.a>
         </motion.div>
@@ -241,7 +241,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
             onClick={() => onOpen(product)}
             className="w-full py-3.5 bg-white text-black text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] transition-colors duration-300"
           >
-            Aperçu rapide
+            Quick view
           </button>
         </div>
       </div>
@@ -255,7 +255,7 @@ function ProductCard({ product, index, onOpen }: { product: Product; index: numb
         onClick={() => onOpen(product)}
         className="mt-3 self-start flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] font-bold text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group/btn"
       >
-        Détails
+        Details
         <ArrowRight size={11} strokeWidth={2} className="group-hover/btn:translate-x-1 transition-transform" />
       </button>
     </motion.article>
@@ -410,11 +410,11 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
               <div className="h-px bg-stone-100 mb-6" />
               <p className="text-stone-500 text-sm font-light leading-relaxed mb-8">{product.description}</p>
 
-              {/* Tailles enfant */}
+              {/* Kids sizes */}
               <div>
-                <p className="text-[9px] uppercase tracking-[0.4em] font-black text-stone-400 mb-3">Taille</p>
+                <p className="text-[9px] uppercase tracking-[0.4em] font-black text-stone-400 mb-3">Size</p>
                 <div className="flex flex-wrap gap-2">
-                  {['2 ans', '4 ans', '6 ans', '8 ans', '10 ans', '12 ans'].map(s => (
+                  {['2 yrs', '4 yrs', '6 yrs', '8 yrs', '10 yrs', '12 yrs'].map(s => (
                     <button key={s} onClick={() => setSize(s)}
                       className={`px-3 h-10 text-[9px] font-bold transition-all duration-200 border ${size === s ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 text-stone-600 hover:border-stone-500'}`}>
                       {s}
@@ -430,10 +430,10 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
                 className={`w-full py-5 text-[9px] uppercase tracking-[0.45em] font-black flex items-center justify-center gap-4 transition-all duration-500 ${added ? 'bg-[#D4AF37] text-black' : 'bg-stone-900 text-white hover:bg-[#D4AF37] hover:text-black'}`}
               >
                 <ShoppingBag size={14} strokeWidth={1.5} />
-                {added ? '✓ Ajouté au panier' : 'Ajouter au panier'}
+                {added ? '✓ Added to cart' : 'Add to cart'}
               </button>
               <p className="text-center text-[9px] uppercase tracking-widest text-stone-300 font-medium">
-                Livraison offerte à Abidjan · 24/48h
+                Free delivery in Abidjan · 24/48h
               </p>
             </div>
           </div>
@@ -463,7 +463,7 @@ export default function KidsPage() {
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('Erreur chargement produits:', error.message);
+        console.error('Product loading error:', error.message);
         setLoading(false);
         return;
       }
@@ -513,12 +513,12 @@ export default function KidsPage() {
           <div className="flex items-center justify-center py-32">
             <div className="flex flex-col items-center gap-4 text-stone-400">
               <div className="w-8 h-8 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
-              <p className="text-[10px] uppercase tracking-[0.4em] font-light">Chargement...</p>
+              <p className="text-[10px] uppercase tracking-[0.4em] font-light">Loading...</p>
             </div>
           </div>
         ) : collections.length === 0 ? (
           <div className="flex items-center justify-center py-32">
-            <p className="text-stone-300 text-sm font-light tracking-widest uppercase">Aucun produit disponible</p>
+            <p className="text-stone-300 text-sm font-light tracking-widest uppercase">No products available</p>
           </div>
         ) : (
           collections.map(col => (

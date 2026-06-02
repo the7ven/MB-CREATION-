@@ -74,15 +74,15 @@ function TrendingHero() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="flex flex-col items-center gap-5">
           <div className="flex items-center gap-4">
             <div className="h-px w-12 bg-[#D4AF37]/60" />
-            <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.7em] font-bold flex items-center gap-2"><TrendingUp size={10} strokeWidth={2} />Ce qui fait la tendance</span>
+            <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.7em] font-bold flex items-center gap-2"><TrendingUp size={10} strokeWidth={2} />Whats trending</span>
             <div className="h-px w-12 bg-[#D4AF37]/60" />
           </div>
           <h1 className="text-white text-6xl md:text-[9rem] font-black uppercase italic tracking-[-0.02em] leading-none" style={{ textShadow: '0 4px 60px rgba(0,0,0,0.5)' }}>Trending</h1>
-          <p className="text-white/40 text-sm font-light max-w-md leading-relaxed">New arrivals, best sellers et offres exclusives — tout ce qui fait l'actualité MB-Creation en ce moment.</p>
+          <p className="text-white/40 text-sm font-light max-w-md leading-relaxed">New arrivals, best sellers and exclusive offers — everything making MB-Creation news right now.</p>
         </motion.div>
       </motion.div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-        <span className="text-[9px] uppercase tracking-[0.5em] text-white/25 font-light">Défiler</span>
+        <span className="text-[9px] uppercase tracking-[0.5em] text-white/25 font-light">Scroll</span>
         <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} className="w-px h-8 bg-gradient-to-b from-[#D4AF37]/50 to-transparent" />
       </motion.div>
     </section>
@@ -99,8 +99,8 @@ function StatsBar({ counts }: { counts: Record<string, number> }) {
   const stats = [
     { label: 'New Arrivals',      value: String(counts['new-arrivals']   ?? 0), icon: <Zap        size={14} className="text-[#D4AF37]" /> },
     { label: 'Best Sellers',      value: String(counts['best-sellers']   ?? 0), icon: <Flame      size={14} className="text-[#D4AF37]" /> },
-    { label: 'Offres Spéciales',  value: String(counts['special-offers'] ?? 0), icon: <Star       size={14} className="text-[#D4AF37]" /> },
-    { label: 'Pièces Exclusives', value: String(total),                          icon: <TrendingUp size={14} className="text-[#D4AF37]" /> },
+    { label: 'Special Offers',    value: String(counts['special-offers'] ?? 0), icon: <Star       size={14} className="text-[#D4AF37]" /> },
+    { label: 'Exclusive Pieces',  value: String(total),                          icon: <TrendingUp size={14} className="text-[#D4AF37]" /> },
   ];
   return (
     <div ref={ref} className="bg-stone-900 py-6 px-8 md:px-20">
@@ -142,7 +142,7 @@ function FeaturedSpotlight({ product, onOpen }: { product: Product; onOpen: (p: 
                 {product.old_price && (<span className="text-white/30 text-sm line-through mr-2">{formatPrice(product.old_price)} FCFA</span>)}
                 <span className="text-white text-xl font-light">{formatPrice(product.price)}{' '}<span className="text-[10px] tracking-widest text-white/40">FCFA</span></span>
               </div>
-              <button className="flex items-center gap-2 px-8 py-3 bg-[#D4AF37] text-black text-[9px] uppercase tracking-[0.35em] font-black hover:bg-white transition-colors duration-300">Voir la pièce <ArrowUpRight size={12} strokeWidth={2} /></button>
+              <button className="flex items-center gap-2 px-8 py-3 bg-[#D4AF37] text-black text-[9px] uppercase tracking-[0.35em] font-black hover:bg-white transition-colors duration-300">View item <ArrowUpRight size={12} strokeWidth={2} /></button>
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@ function TrendingCard({ product, index, onOpen }: { product: Product; index: num
         {product.badge && (<div className="absolute top-4 left-4 z-10"><span className={`text-[9px] uppercase tracking-[0.25em] font-black px-3 py-1.5 ${BADGE_CONFIG[product.label_icon]?.bg ?? 'bg-stone-900'} ${BADGE_CONFIG[product.label_icon]?.text ?? 'text-white'}`}>{product.badge}</span></div>)}
         {product.expires_in && (<div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-3 py-1.5"><div className="w-1 h-1 rounded-full bg-[#D4AF37] animate-pulse" /><span className="text-[9px] uppercase tracking-[0.2em] text-[#D4AF37] font-bold">{product.expires_in}</span></div>)}
         <button onClick={e => { e.stopPropagation(); setLiked(l => !l); }} className="absolute bottom-4 right-4 z-10 p-2 bg-white/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300"><Heart size={13} strokeWidth={1.5} className={liked ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-stone-500'} /></button>
-        <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"><button onClick={() => onOpen(product)} className="w-full py-3.5 bg-stone-900 text-white text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] hover:text-black transition-colors duration-300">Aperçu rapide</button></div>
+        <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"><button onClick={() => onOpen(product)} className="w-full py-3.5 bg-stone-900 text-white text-[9px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] hover:text-black transition-colors duration-300">Quick view</button></div>
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-700 pointer-events-none" />
       </div>
       <div className="flex items-start justify-between mb-1">
@@ -180,7 +180,7 @@ function TrendingCard({ product, index, onOpen }: { product: Product; index: num
       </div>
       <h3 className="text-sm font-black uppercase tracking-wider text-stone-900 mb-1">{product.name}</h3>
       <p className="text-sm font-light text-stone-500">{formatPrice(product.price)} <span className="text-[10px] tracking-widest text-stone-400">FCFA</span></p>
-      <button onClick={() => onOpen(product)} className="mt-3 self-start flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] font-bold text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group/btn">Détails<ArrowRight size={11} strokeWidth={2} className="group-hover/btn:translate-x-1 transition-transform" /></button>
+      <button onClick={() => onOpen(product)} className="mt-3 self-start flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] font-bold text-stone-900 border-b border-stone-200 pb-0.5 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors duration-300 group/btn">Details<ArrowRight size={11} strokeWidth={2} className="group-hover/btn:translate-x-1 transition-transform" /></button>
     </motion.article>
   );
 }
@@ -330,7 +330,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
                 <div className="flex items-center gap-2 mb-5 px-4 py-3 bg-stone-50 border-l-2 border-[#D4AF37]">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
                   <span className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] font-bold">
-                    Offre expire dans {product.expires_in}
+                    Offer expires in {product.expires_in}
                   </span>
                 </div>
               )}
@@ -340,7 +340,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 
               {product.sizes && product.sizes.length > 0 && (
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.4em] font-black text-stone-400 mb-3">Taille</p>
+                  <p className="text-[9px] uppercase tracking-[0.4em] font-black text-stone-400 mb-3">Size</p>
                   <div className="flex flex-wrap gap-2">
                     {product.sizes.map(s => (
                       <button key={s} onClick={() => setSize(s)}
@@ -439,7 +439,7 @@ export default function TrendingPage() {
         {/* FILTRES */}
         <div ref={headerRef} className="py-14 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-stone-100">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={headerInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-            <span className="text-stone-400 text-sm font-light">Filtrer par catégorie</span>
+            <span className="text-stone-400 text-sm font-light">Filter by category</span>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={headerInView ? { opacity: 1 } : {}} transition={{ duration: 0.6, delay: 0.15 }} className="flex flex-wrap gap-2">
             {categories.map(cat => (
@@ -458,7 +458,7 @@ export default function TrendingPage() {
         ) : products.length === 0 ? (
           <div className="py-32 flex flex-col items-center gap-4 text-center">
             <TrendingUp size={32} className="text-stone-200" />
-            <p className="text-stone-400 text-sm font-light">Aucun produit trending pour le moment.<br />Ajoutez des produits avec <span className="font-bold text-stone-600">page = 'trending'</span> dans votre dashboard.</p>
+            <p className="text-stone-400 text-sm font-light">No trending products at the moment.<br />Add products with <span className="font-bold text-stone-600">page = 'trending'</span> in your dashboard.</p>
           </div>
         ) : (
           <AnimatePresence mode="wait">
@@ -474,8 +474,8 @@ export default function TrendingPage() {
         {!loading && (
           <div className="py-24 flex flex-col items-center gap-6 text-center">
             <div className="h-px w-12 bg-[#D4AF37]" />
-            <h3 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter text-black">Voir toutes les collections</h3>
-            <p className="text-stone-400 text-sm font-light max-w-sm">Explorez l'ensemble de l'univers MB-Creation — Homme, Femme, Enfant.</p>
+            <h3 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter text-black">See all collections</h3>
+            <p className="text-stone-400 text-sm font-light max-w-sm">Explore the full MB-Creation universe — Men, Women, Kids.</p>
             <div className="flex flex-wrap gap-4 justify-center mt-2">
               {[["Men's", '/shop/men'], ["Women's", '/shop/women'], ['Kids', '/shop/kids']].map(([label, href]) => (
                 <Link key={label} href={href} className="px-10 py-4 border border-stone-200 text-stone-900 text-[9px] uppercase tracking-[0.4em] font-black hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all duration-300 flex items-center gap-3 group">
