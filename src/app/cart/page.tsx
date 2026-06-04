@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { useState,useEffect } from 'react';
 import { ChevronRight, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { supabase } from '@/lib/supabase';
 
+export const dynamic = "force-dynamic";
 export default function CartPage() {
       
   const [isMounted, setIsMounted] = useState(false);
