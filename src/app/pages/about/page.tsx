@@ -34,7 +34,7 @@ const story = [
     id: 4,
     year: '✦',
     label: 'Identity',
-    title: 'Uniqueness as a signature',
+    title: 'Authenticity as a signature',
     text: "Bold patterns, modern cuts, cultural fusion — Manuella Bufang's collections reflect a proud multicultural identity. Each garment tells a story, invites its wearer to stand out, and celebrates individuality in a world that often looks the same.",
   },
 ];
