@@ -1,8 +1,10 @@
 'use client';
 import Link from 'next/link';
-
+import { useAuth } from '@/context/AuthContext';
 
 export default function Footer() {
+  const { isAdmin } = useAuth();
+
   return (
     <footer className="bg-[#0e0d0b] text-[#f5f0e8] font-cormorant pt-20 pb-10 border-t border-[#D4AF37]/20">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16">
@@ -23,7 +25,6 @@ export default function Footer() {
             <p className="text-white text-lg leading-relaxed font-light max-w-xs">
               The excellence of artisanal craftsmanship serving contemporary elegance. Each piece is a unique work designed for the elite.
             </p>
-            {/* Icônes réseaux sociaux */}
             <div className="flex items-center gap-5 pt-2">
               <Link
                 href="https://www.facebook.com/share/1BB1YvUfh1/?mibextid=LQQJ4d"
@@ -53,24 +54,24 @@ export default function Footer() {
           </div>
 
           {/* Colonne 2 : Collections */}
-         <div>
-  <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">Collections</h3>
-  <ul className="space-y-4">
-    {[
-      { label: "MEN'S",  href: "/shop/men"   },
-      { label: "WOMEN'S",  href: "/shop/women" },
-      { label: "KIDS", href: "/shop/kids"  },
-    ].map((item) => (
-      <li key={item.href}>
-        <Link href={item.href} className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
-          {item.label}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</div>
+          <div>
+            <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">Collections</h3>
+            <ul className="space-y-4">
+              {[
+                { label: "MEN'S", href: "/shop/men" },
+                { label: "WOMEN'S", href: "/shop/women" },
+                { label: "KIDS", href: "/shop/kids" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-white/70 hover:text-[#D4AF37] text-lg transition-colors duration-300 font-light">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Colonne 3 : Services */}
+          {/* Colonne 3 : The House */}
           <div>
             <h3 className="text-[#D4AF37] text-xs uppercase tracking-[0.4em] font-bold mb-8">The House</h3>
             <ul className="space-y-4">
@@ -117,8 +118,13 @@ export default function Footer() {
         {/* --- SECTION BASSE : COPYRIGHT & LEGAL --- */}
         <div className="flex flex-col md:row justify-between items-center pt-10 border-t border-white/5 text-[10px] text-white/30 tracking-widest uppercase gap-4">
           <p>© 2026 <span className="text-white/60 font-bold">MB·Creation</span>. All rights reserved.</p>
-          <div className="flex gap-8">
-            <Link href="/admin" className="hover:text-[#D4AF37]">Admin</Link>
+          <div className="flex gap-8 flex-wrap justify-center">
+
+            {/* Bouton Admin visible uniquement pour les admins */}
+            {isAdmin && (
+              <Link href="/admin" className="hover:text-[#D4AF37]">Admin</Link>
+            )}
+
             <Link href="#" className="hover:text-[#D4AF37]">Legal Notice</Link>
             <Link href="#" className="hover:text-[#D4AF37]">Privacy Policy</Link>
             <Link href="#" className="hover:text-[#D4AF37]">Terms</Link>
