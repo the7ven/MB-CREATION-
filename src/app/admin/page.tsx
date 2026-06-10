@@ -5,11 +5,11 @@ import {
   Plus, Trash2, Loader2, LogOut, Package, ShoppingBag,
   Upload, History, ChevronDown, LayoutDashboard, Users,
   BarChart2, Mail, Calendar, Settings, Bell, Search,
-  TrendingUp, Archive
+  TrendingUp, Archive, ShieldCheck
 } from 'lucide-react';
 import {
-  LineChart, Line, BarChart, Bar, XAxis, YAxis,
-  CartesianGrid, Tooltip, ResponsiveContainer, Legend
+  LineChart, Line, XAxis, YAxis,
+  CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 
 // ============================================================
@@ -51,7 +51,13 @@ type Order = {
 
 type HistoryItem = Order & { archived_at: string; original_order_id: string };
 
-type ActivePage = 'dashboard' | 'products' | 'orders' | 'history';
+type AdminUser = {
+  id: string;
+  email: string;
+  created_at: string;
+};
+
+type ActivePage = 'dashboard' | 'products' | 'orders' | 'history' | 'admins';
 
 // ============================================================
 // CONSTANTES
@@ -88,16 +94,6 @@ const SALES_DATA = [
   { month: 'Déc', current: 13.8, previous: 9.2 },
 ];
 
-const VIEWS_DATA = [
-  { day: 'Lun', thisWeek: 8200, lastWeek: 6100 },
-  { day: 'Mar', thisWeek: 10400, lastWeek: 7800 },
-  { day: 'Mer', thisWeek: 9100, lastWeek: 8200 },
-  { day: 'Jeu', thisWeek: 12300, lastWeek: 9400 },
-  { day: 'Ven', thisWeek: 11800, lastWeek: 9900 },
-  { day: 'Sam', thisWeek: 14200, lastWeek: 11500 },
-  { day: 'Dim', thisWeek: 13100, lastWeek: 10800 },
-];
-
 type RevenueRow = {
   year: number;
   month: number;
@@ -124,6 +120,7 @@ function Sidebar({
     { id: 'products' as ActivePage, label: 'Inventaire', icon: Package },
     { id: 'orders' as ActivePage, label: `Commandes (${ordersCount})`, icon: ShoppingBag },
     { id: 'history' as ActivePage, label: 'Historique', icon: History },
+    { id: 'admins' as ActivePage, label: 'Admins', icon: ShieldCheck },
   ];
 
   const otherItems = [
@@ -319,31 +316,10 @@ function DashboardPage({
             <h2 className="text-xl font-black text-stone-900">Bonjour, Admin 👋</h2>
             <p className="text-xs text-gray-400 mt-0.5">Voici un résumé de votre activité</p>
           </div>
-          <div className="ml-auto flex flex-col sm:flex-row gap-3 items-stretch">
-            <label className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gray-500">
-              <span>Nombre de commandes</span>
-              <input
-                type="number"
-                value={simulateCount}
-                onChange={(e) => onCountChange(Math.max(1, Number(e.target.value) || 1))}
-                min={1}
-                className="w-20 border border-gray-200 rounded-lg px-3 py-2 text-xs text-stone-900 focus:border-[#D4AF37] outline-none"
-              />
-            </label>
-            <button
-              onClick={() => simulateOrders && simulateOrders(simulateCount)}
-              disabled={simulateLoading}
-              className="text-xs bg-[#12121f] text-white px-3 py-2 rounded-md hover:bg-[#D4AF37] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {simulateLoading ? 'Simulation...' : 'Simuler'}
-            </button>
+          <div className="ml-auto flex items-center">
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-400">Tableau de bord</span>
           </div>
         </div>
-        {simulateMessage ? (
-          <div className="mt-3 rounded-lg border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-4 py-3 text-sm text-stone-900">
-            {simulateMessage}
-          </div>
-        ) : null}
       </div>
 
       {/* Stats */}
@@ -356,7 +332,6 @@ function DashboardPage({
 
       {/* Charts */}
       <div className="grid grid-cols-5 gap-4">
-        {/* Sales trend */}
         <div className="col-span-3 bg-white rounded-xl border border-gray-100 p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="text-xs font-bold uppercase tracking-widest text-stone-700">Tendance des ventes</div>
@@ -383,39 +358,10 @@ function DashboardPage({
             </LineChart>
           </ResponsiveContainer>
         </div>
-
-        {/* Product views */}
-        <div className="col-span-2 bg-white rounded-xl border border-gray-100 p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-xs font-bold uppercase tracking-widest text-stone-700">Vues produits</div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
-                <span className="w-2 h-2 rounded-full bg-[#D4AF37] inline-block" />Sem.
-              </div>
-              <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
-                <span className="w-2 h-2 rounded-full bg-gray-200 inline-block" />Préc.
-              </div>
-            </div>
-          </div>
-          <ResponsiveContainer width="100%" height={180}>
-            <BarChart data={VIEWS_DATA} barGap={2}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
-              <XAxis dataKey="day" tick={{ fontSize: 10, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10, fill: '#9ca3af' }} axisLine={false} tickLine={false} tickFormatter={v => `${v/1000}k`} />
-              <Tooltip
-                contentStyle={{ border: '0.5px solid #e5e7eb', borderRadius: 8, fontSize: 11 }}
-                formatter={(v: any) => [`${(v/1000).toFixed(1)}k vues`]}
-              />
-              <Bar dataKey="thisWeek" fill="#D4AF37" radius={[3,3,0,0]} name="Cette sem." />
-              <Bar dataKey="lastWeek" fill="#E5E7EB" radius={[3,3,0,0]} name="Sem. préc." />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
       </div>
 
       {/* Bottom row */}
       <div className="grid grid-cols-5 gap-4">
-        {/* Recent orders */}
         <div className="col-span-3 bg-white rounded-xl border border-gray-100 overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-gray-50">
             <div className="text-xs font-bold uppercase tracking-widest text-stone-700">Commandes récentes</div>
@@ -459,7 +405,6 @@ function DashboardPage({
           </table>
         </div>
 
-        {/* Top produits */}
         <div className="col-span-2 bg-white rounded-xl border border-gray-100 p-5">
           <div className="text-xs font-bold uppercase tracking-widest text-stone-700 mb-4">Top produits vendus</div>
           {topProducts.length > 0 ? topProducts.map(p => (
@@ -474,7 +419,191 @@ function DashboardPage({
 }
 
 // ============================================================
-// MODAL PRODUIT (inchangée fonctionnellement)
+// PAGE ADMINS
+// ============================================================
+function AdminsPage() {
+  const [admins, setAdmins] = useState<AdminUser[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [creating, setCreating] = useState(false);
+  const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+  const fetchAdmins = async () => {
+    const { data } = await supabase.from('admins').select('*').order('created_at', { ascending: false });
+    setAdmins(data || []);
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchAdmins(); }, []);
+
+  const handleCreate = async () => {
+    if (!form.email || !form.password) {
+      setMessage({ text: 'Email et mot de passe obligatoires.', type: 'error' });
+      return;
+    }
+    setCreating(true);
+    setMessage(null);
+    try {
+      // 1. Créer le compte Supabase Auth
+      const { error: signUpError } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password,
+      });
+      if (signUpError) throw signUpError;
+
+      // 2. Insérer dans la table admins
+      const { error: insertError } = await supabase
+        .from('admins')
+        .insert([{ email: form.email }]);
+      if (insertError) throw insertError;
+
+      // 3. Insérer dans customers aussi
+      await supabase.from('customers').upsert([{
+        email: form.email,
+        customer_name: form.name || form.email,
+      }], { onConflict: 'email' });
+
+      setMessage({ text: `✓ Compte admin créé pour ${form.email}`, type: 'success' });
+      setForm({ name: '', email: '', password: '' });
+      fetchAdmins();
+    } catch (err: any) {
+      setMessage({ text: err.message || 'Erreur inconnue.', type: 'error' });
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  const handleDelete = async (email: string) => {
+    if (!window.confirm(`Retirer les droits admin de ${email} ?`)) return;
+    await supabase.from('admins').delete().eq('email', email);
+    fetchAdmins();
+  };
+
+  return (
+    <div className="p-6 space-y-6">
+      <div>
+        <h2 className="text-lg font-black text-stone-900">Gestion des admins</h2>
+        <p className="text-xs text-gray-400 mt-0.5">{admins.length} administrateur(s) actif(s)</p>
+      </div>
+
+      {/* Formulaire création */}
+      <div className="bg-white rounded-xl border border-gray-100 p-6">
+        <h3 className="text-xs font-black uppercase tracking-widest text-stone-700 mb-1">
+          Créer un compte admin
+        </h3>
+        <p className="text-[10px] text-gray-400 mb-5">
+          Le nouvel admin pourra se connecter immédiatement avec ces identifiants.
+        </p>
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">Nom complet</label>
+            <input
+              type="text"
+              value={form.name}
+              onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+              placeholder="Ex: Marie Dupont"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:border-[#D4AF37] outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">Email *</label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+              placeholder="admin@email.com"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:border-[#D4AF37] outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">Mot de passe *</label>
+            <input
+              type="password"
+              value={form.password}
+              onChange={(e) => setForm(f => ({ ...f, password: e.target.value }))}
+              placeholder="••••••••"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:border-[#D4AF37] outline-none"
+            />
+          </div>
+        </div>
+
+        {message && (
+          <p className={`text-xs mb-4 font-medium ${message.type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
+            {message.text}
+          </p>
+        )}
+
+        <button
+          onClick={handleCreate}
+          disabled={creating}
+          className="bg-[#12121f] text-white px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all flex items-center gap-2 rounded-lg disabled:opacity-50"
+        >
+          {creating
+            ? <><Loader2 size={12} className="animate-spin" /> Création...</>
+            : <><Plus size={12} /> Créer l'admin</>
+          }
+        </button>
+      </div>
+
+      {/* Liste des admins */}
+      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+          <div className="text-xs font-bold uppercase tracking-widest text-stone-700">Administrateurs actifs</div>
+          <span className="text-[10px] text-gray-400">{admins.length} au total</span>
+        </div>
+        <table className="w-full text-left">
+          <thead className="bg-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-400">
+            <tr>
+              <th className="px-6 py-4">Email</th>
+              <th className="px-6 py-4">Ajouté le</th>
+              <th className="px-6 py-4"></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-50">
+            {loading ? (
+              <tr>
+                <td colSpan={3} className="p-10 text-center">
+                  <Loader2 className="animate-spin text-[#D4AF37] mx-auto" size={20} />
+                </td>
+              </tr>
+            ) : admins.length === 0 ? (
+              <tr>
+                <td colSpan={3} className="p-10 text-center text-gray-300 text-sm">Aucun admin</td>
+              </tr>
+            ) : admins.map((admin) => (
+              <tr key={admin.id} className="hover:bg-gray-50/40 transition-colors">
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#D4AF37] flex items-center justify-center text-[10px] font-black text-[#12121f]">
+                      {admin.email[0].toUpperCase()}
+                    </div>
+                    <span className="text-sm font-medium text-stone-800">{admin.email}</span>
+                  </div>
+                </td>
+                <td className="px-6 py-4 text-xs text-gray-400">
+                  {new Date(admin.created_at).toLocaleDateString('fr-FR', {
+                    day: '2-digit', month: 'short', year: 'numeric'
+                  })}
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <button
+                    onClick={() => handleDelete(admin.email)}
+                    className="text-[10px] font-bold uppercase tracking-widest text-gray-300 hover:text-red-500 transition-colors flex items-center gap-1 ml-auto"
+                  >
+                    <Trash2 size={13} /> Retirer
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// MODAL PRODUIT
 // ============================================================
 function ProductModal({
   isOpen, onClose, onSaved, editProduct,
@@ -877,16 +1006,10 @@ export default function AdminDashboard() {
   }, [fetchData]);
 
   const simulateOrders = async (count = 5) => {
-    if (count < 1) {
-      setSimulateMessage('Le nombre de commandes doit être au moins 1.');
-      return;
-    }
-    if (!window.confirm(`Confirmer la simulation de ${count} commandes ?`)) {
-      return;
-    }
+    if (count < 1) { setSimulateMessage('Le nombre de commandes doit être au moins 1.'); return; }
+    if (!window.confirm(`Confirmer la simulation de ${count} commandes ?`)) return;
     setSimulateLoading(true);
     setSimulateMessage(null);
-
     try {
       let created = 0;
       for (let i = 0; i < count; i++) {
@@ -906,59 +1029,37 @@ export default function AdminDashboard() {
           await supabase.from('products').update({ stock: newStock, is_available: newStock > 0 }).eq('id', p.id);
         }
         if (items.length === 0) continue;
-
         const stamp = Date.now().toString().slice(-6);
         const fakeName = `Test User ${stamp}${i}`;
         const fakeEmail = `test+${stamp}${i}@example.com`;
-
         const orderPayload: Record<string, any> = {
-          customer_name: fakeName,
-          customer_email: fakeEmail,
-          items,
-          total_amount: total,
-          status: 'completed',
-          is_test: true,
-          metadata: { test_order: true },
+          customer_name: fakeName, customer_email: fakeEmail, items,
+          total_amount: total, status: 'completed', is_test: true, metadata: { test_order: true },
         };
-
         const { error: orderError } = await supabase.from('orders').insert([orderPayload]);
         if (orderError) {
-          console.warn('Simulated order insert failed with test flags, retrying without them:', orderError.message);
           const fallbackPayload = { ...orderPayload };
           delete fallbackPayload.is_test;
           delete fallbackPayload.metadata;
           const { error: fallbackError } = await supabase.from('orders').insert([fallbackPayload]);
-          if (fallbackError) {
-            throw fallbackError;
-          }
+          if (fallbackError) throw fallbackError;
         }
-
-        try {
-          await supabase.from('customers').upsert([{ email: fakeEmail, customer_name: fakeName }], { onConflict: 'email' });
-        } catch {
-          // ignore if customers schema does not accept the row
-        }
-
+        try { await supabase.from('customers').upsert([{ email: fakeEmail, customer_name: fakeName }], { onConflict: 'email' }); } catch {}
         try {
           const now = new Date();
-          const year = now.getFullYear();
-          const month = now.getMonth() + 1;
+          const year = now.getFullYear(); const month = now.getMonth() + 1;
           const { data: existing } = await supabase.from('revenue').select('*').eq('year', year).eq('month', month).limit(1).maybeSingle();
           if (existing) {
             await supabase.from('revenue').update({ amount: Number(existing.amount || 0) + Number(total || 0), orders_count: Number(existing.orders_count || 0) + 1 }).eq('id', existing.id);
           } else {
             await supabase.from('revenue').insert([{ year, month, amount: Number(total || 0), orders_count: 1 }]);
           }
-        } catch {
-          // ignore revenue errors
-        }
-
+        } catch {}
         created += 1;
       }
       setSimulateMessage(`Simulation terminée : ${created} commande(s) créées.`);
     } catch (err: any) {
       setSimulateMessage(`Erreur de simulation : ${err.message || err}`);
-      console.error('Simulation error', err);
     } finally {
       setSimulateLoading(false);
       await fetchData();
@@ -1028,6 +1129,7 @@ export default function AdminDashboard() {
     products: 'Inventaire produits',
     orders: 'Gestion des commandes',
     history: 'Historique des commandes',
+    admins: 'Gestion des admins',
   };
 
   if (authLoading) return (
@@ -1043,7 +1145,7 @@ export default function AdminDashboard() {
         activePage={activePage}
         onNavigate={setActivePage}
         ordersCount={orders.length}
-        onSignOut={async () => { await supabase.auth.signOut(); window.location.href = "/admin/login"; }}
+        onSignOut={() => { window.location.href = '/account'; }}
       />
 
       <div className="flex-1 flex flex-col min-w-0">
@@ -1053,16 +1155,10 @@ export default function AdminDashboard() {
           {/* ── DASHBOARD ── */}
           {activePage === 'dashboard' && (
             <DashboardPage
-              products={products}
-              orders={orders}
-              history={history}
-              customerCount={customerCount}
-              salesData={salesData}
-              topProducts={topProducts}
-              simulateOrders={simulateOrders}
-              simulateCount={simulateCount}
-              simulateLoading={simulateLoading}
-              simulateMessage={simulateMessage}
+              products={products} orders={orders} history={history}
+              customerCount={customerCount} salesData={salesData} topProducts={topProducts}
+              simulateOrders={simulateOrders} simulateCount={simulateCount}
+              simulateLoading={simulateLoading} simulateMessage={simulateMessage}
               onCountChange={setSimulateCount}
             />
           )}
@@ -1082,7 +1178,6 @@ export default function AdminDashboard() {
                   <Plus size={14} /> Ajouter un produit
                 </button>
               </div>
-
               <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
                   <thead className="bg-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-400">
@@ -1128,9 +1223,7 @@ export default function AdminDashboard() {
                             )}
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <span className="text-xs text-gray-500">{p.category}</span>
-                        </td>
+                        <td className="px-6 py-4"><span className="text-xs text-gray-500">{p.category}</span></td>
                         <td className="px-6 py-4">
                           <input type="number" defaultValue={p.price}
                             onBlur={(e) => updateProductField(p.id, "price", parseFloat(e.target.value))}
@@ -1181,11 +1274,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
                   <thead className="bg-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-400">
-                    <tr>
-                      {['Client', 'Articles', 'Total', 'Statut', 'Date', ''].map(h => (
-                        <th key={h} className="px-6 py-4">{h}</th>
-                      ))}
-                    </tr>
+                    <tr>{['Client', 'Articles', 'Total', 'Statut', 'Date', ''].map(h => <th key={h} className="px-6 py-4">{h}</th>)}</tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {orders.length === 0 ? (
@@ -1215,9 +1304,7 @@ export default function AdminDashboard() {
                             <option value="cancelled">Annulée</option>
                           </select>
                         </td>
-                        <td className="px-6 py-4 text-xs text-gray-400">
-                          {new Date(o.created_at).toLocaleDateString("fr-FR")}
-                        </td>
+                        <td className="px-6 py-4 text-xs text-gray-400">{new Date(o.created_at).toLocaleDateString("fr-FR")}</td>
                         <td className="px-6 py-4 text-right">
                           <Trash2 size={14} className="text-gray-200 hover:text-red-500 cursor-pointer transition-colors" onClick={() => deleteOrder(o)} />
                         </td>
@@ -1239,11 +1326,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
                   <thead className="bg-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-400">
-                    <tr>
-                      {['Client', 'Articles', 'Total', 'Statut final', 'Archivé le'].map(h => (
-                        <th key={h} className="px-6 py-4">{h}</th>
-                      ))}
-                    </tr>
+                    <tr>{['Client', 'Articles', 'Total', 'Statut final', 'Archivé le'].map(h => <th key={h} className="px-6 py-4">{h}</th>)}</tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {history.length === 0 ? (
@@ -1270,9 +1353,7 @@ export default function AdminDashboard() {
                             {statusLabel(h.status)}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-xs text-gray-400">
-                          {new Date(h.archived_at).toLocaleDateString("fr-FR")}
-                        </td>
+                        <td className="px-6 py-4 text-xs text-gray-400">{new Date(h.archived_at).toLocaleDateString("fr-FR")}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1280,6 +1361,10 @@ export default function AdminDashboard() {
               </div>
             </div>
           )}
+
+          {/* ── ADMINS ── */}
+          {activePage === 'admins' && <AdminsPage />}
+
         </main>
       </div>
 

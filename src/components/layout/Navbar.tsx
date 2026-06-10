@@ -1,10 +1,13 @@
-'use client';
+"use client";
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, ShoppingBag, ChevronDown } from 'lucide-react';
+import { X, User, ShoppingBag, ChevronDown, LogOut } from 'lucide-react';
 import { Logo, SearchIconGold, MenuIcon } from '@/components/ui/LogosAndIcons';
 import CartDrawer from '@/components/cart/CartDrawer';
+import AuthModal from '@/components/auth/AuthModal';
+import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 const menuLinks = [
   {
@@ -38,7 +41,15 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const { totalItems } = useCart();
+  const { user, signOut } = useAuth();
+
+  // Récupère le nom depuis customers ou l'email comme fallback
+  const displayName = user?.user_metadata?.customer_name
+    || user?.email?.split('@')[0]
+    || null;
 
   const toggleSection = (label: string) => {
     setOpenSection(prev => (prev === label ? null : label));
@@ -56,7 +67,7 @@ export default function Navbar() {
             </Link>
             <div className="h-6 w-px bg-stone-300"></div>
             <Link href="/home" className="hover:text-[#D4AF37] transition-colors">
-             Home
+              Home
             </Link>
           </div>
 
@@ -67,6 +78,7 @@ export default function Navbar() {
 
           {/* --- SECTION DROITE --- */}
           <div className="flex items-center space-x-6">
+
             {/* Search */}
             <div className="flex items-center h-8">
               <AnimatePresence mode="wait">
@@ -103,14 +115,39 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Account (Desktop) */}
-            <Link href="/account" className="hidden md:block text-stone-900 hover:text-[#D4AF37] hover:scale-110 transition-all">
-              <User size={22} strokeWidth={1.5} />
-            </Link>
+            {/* Account (Desktop) — nom + déconnexion si connecté, icône sinon */}
+            <div className="hidden md:flex items-center gap-3">
+              {user ? (
+                <>
+                  <span className="text-xs uppercase tracking-[0.2em] font-light text-stone-700">
+                    {displayName}
+                  </span>
+                  <button
+                    onClick={signOut}
+                    className="flex items-center gap-1 text-stone-400 hover:text-red-500 transition-colors"
+                    title="Se déconnecter"
+                  >
+                    <LogOut size={18} strokeWidth={1.5} />
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="text-stone-900 hover:text-[#D4AF37] hover:scale-110 transition-all"
+                >
+                  <User size={22} strokeWidth={1.5} />
+                </button>
+              )}
+            </div>
 
             {/* Cart (Desktop) */}
-            <button onClick={() => setIsCartOpen(true)} className="hidden md:block text-stone-900 hover:text-[#D4AF37] hover:scale-110 transition-all">
+            <button onClick={() => setIsCartOpen(true)} className="relative hidden md:flex items-center text-stone-900 hover:text-[#D4AF37] hover:scale-110 transition-all">
               <ShoppingBag size={22} strokeWidth={1.5} />
+              {totalItems > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#D4AF37] px-1.5 text-[0.65rem] font-bold uppercase text-white shadow-sm">
+                  {totalItems}
+                </span>
+              )}
             </button>
 
             {/* Menu Toggle */}
@@ -161,7 +198,6 @@ export default function Navbar() {
                 <div key={section.label} className="border-b border-stone-100">
                   {section.children.length > 0 ? (
                     <>
-                      {/* Expandable section */}
                       <button
                         onClick={() => toggleSection(section.label)}
                         className="w-full flex items-center justify-between py-4 text-lg uppercase tracking-widest font-extralight text-stone-900 hover:text-[#D4AF37] transition-colors"
@@ -201,7 +237,6 @@ export default function Navbar() {
                       </AnimatePresence>
                     </>
                   ) : (
-                    /* Simple link (Contact) */
                     <Link
                       href={section.href}
                       onClick={() => setIsMenuOpen(false)}
@@ -215,11 +250,36 @@ export default function Navbar() {
 
               {/* Mobile: Account + Cart */}
               <div className="md:hidden flex flex-col items-center space-y-6 pt-8 border-t border-stone-200 w-full">
-                <Link href="/account" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 text-base uppercase tracking-widest font-extralight text-stone-900 hover:text-[#D4AF37] transition-colors">
-                  <User size={20} strokeWidth={1.5} /> Compte
-                </Link>
-                <button onClick={() => { setIsMenuOpen(false); setIsCartOpen(true); }} className="flex items-center gap-3 text-base uppercase tracking-widest font-extralight text-stone-900 hover:text-[#D4AF37] transition-colors">
+                {user ? (
+                  <>
+                    <span className="text-base uppercase tracking-widest font-extralight text-stone-700">
+                      {displayName}
+                    </span>
+                    <button
+                      onClick={() => { signOut(); setIsMenuOpen(false); }}
+                      className="flex items-center gap-2 text-base uppercase tracking-widest font-extralight text-red-400 hover:text-red-600 transition-colors"
+                    >
+                      <LogOut size={18} strokeWidth={1.5} /> Déconnexion
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => { setIsAuthModalOpen(true); setIsMenuOpen(false); }}
+                    className="flex items-center gap-3 text-base uppercase tracking-widest font-extralight text-stone-900 hover:text-[#D4AF37] transition-colors"
+                  >
+                    <User size={20} strokeWidth={1.5} /> Compte
+                  </button>
+                )}
+                <button
+                  onClick={() => { setIsMenuOpen(false); setIsCartOpen(true); }}
+                  className="relative flex items-center gap-3 text-base uppercase tracking-widest font-extralight text-stone-900 hover:text-[#D4AF37] transition-colors"
+                >
                   <ShoppingBag size={20} strokeWidth={1.5} /> Panier
+                  {totalItems > 0 && (
+                    <span className="absolute -right-2 -top-2 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#D4AF37] px-1.5 text-[0.65rem] font-bold uppercase text-white shadow-sm">
+                      {totalItems}
+                    </span>
+                  )}
                 </button>
               </div>
             </div>
@@ -228,6 +288,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </>
   );
 }
