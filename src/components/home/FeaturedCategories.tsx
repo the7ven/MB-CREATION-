@@ -39,7 +39,7 @@ export default function FeaturedCategories() {
     <section className="max-w-[1500px] mx-auto px-6 md:px-20 py-24">
       <div className="text-center mb-16">
         <p className="text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] font-bold mb-4">Shop by category</p>
-        <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tight text-stone-900">
+        <h2 className="text-4xl md:text-5xl font-black  italic tracking-tight text-stone-900">
           Discover one signature piece from each world
         </h2>
         <p className="max-w-2xl mx-auto mt-5 text-sm md:text-base text-stone-500 leading-relaxed">
