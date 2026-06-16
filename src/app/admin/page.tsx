@@ -301,7 +301,10 @@ function DashboardPage({
 }) {
   const totalRevenue = orders
     .filter(o => o.status === 'completed')
-    .reduce((sum, o) => sum + (o.total_amount || 0), 0);
+    .reduce((sum, o) => sum + (o.total_amount || 0), 0)
+    + history
+      .filter((o) => o.status === 'completed')
+      .reduce((sum, o) => sum + (o.total_amount || 0), 0);
 
   const formatRevenue = (amount: number) => {
     if (amount <= 0) return '—';
