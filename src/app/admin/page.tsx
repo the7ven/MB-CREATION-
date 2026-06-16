@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import {
   Plus, Trash2, Loader2, LogOut, Package, ShoppingBag,
@@ -193,7 +193,7 @@ function Sidebar({
 // ============================================================
 // TOPBAR
 // ============================================================
-function Topbar({ title }: { title: string }) {
+function Topbar({ title, newOrderCount, onBellClick }: { title: string; newOrderCount: number; onBellClick: () => void }) {
   return (
     <header className="h-14 bg-white border-b border-gray-100 flex items-center justify-between px-6 shrink-0">
       <div className="text-sm font-semibold text-stone-800">{title}</div>
@@ -202,9 +202,15 @@ function Topbar({ title }: { title: string }) {
           <Search size={12} />
           Rechercher...
         </div>
-        <button className="relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 transition-colors">
+        <button onClick={onBellClick} className="relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 transition-colors">
           <Bell size={15} className="text-gray-400" />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#D4AF37] rounded-full" />
+          {newOrderCount > 0 ? (
+            <span className="absolute top-0.5 right-0.5 flex h-5 min-w-[1.2rem] items-center justify-center rounded-full bg-[#D4AF37] px-1.5 text-[10px] font-black text-black">
+              {newOrderCount}
+            </span>
+          ) : (
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#D4AF37] rounded-full" />
+          )}
         </button>
         <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 transition-colors">
           <Mail size={15} className="text-gray-400" />
@@ -922,6 +928,25 @@ export default function AdminDashboard() {
   const [simulateCount, setSimulateCount] = useState(5);
   const [simulateLoading, setSimulateLoading] = useState(false);
   const [simulateMessage, setSimulateMessage] = useState<string | null>(null);
+  const [seenOrderIds, setSeenOrderIds] = useState<string[]>([]);
+
+  const newOrderCount = useMemo(
+    () => orders.filter((order) => order.status === 'pending' && !seenOrderIds.includes(order.id)).length,
+    [orders, seenOrderIds]
+  );
+
+  const markPendingOrdersAsSeen = () => {
+    setSeenOrderIds((prev) => Array.from(
+      new Set([...prev, ...orders.filter((order) => order.status === 'pending').map((order) => order.id)])
+    ));
+  };
+
+  const handleNavigate = (page: ActivePage) => {
+    setActivePage(page);
+    if (page === 'orders') {
+      markPendingOrdersAsSeen();
+    }
+  };
 
   const parseItems = (items: any) => {
     if (Array.isArray(items)) return items;
@@ -1144,13 +1169,22 @@ export default function AdminDashboard() {
     <div className="flex min-h-screen bg-[#f7f8fc] font-sans">
       <Sidebar
         activePage={activePage}
-        onNavigate={setActivePage}
+        onNavigate={handleNavigate}
         ordersCount={orders.length}
         onSignOut={() => { window.location.href = '/account'; }}
       />
 
       <div className="flex-1 flex flex-col min-w-0">
-        <Topbar title={pageTitles[activePage]} />
+        <Topbar
+          title={pageTitles[activePage]}
+          newOrderCount={newOrderCount}
+          onBellClick={() => {
+            setActivePage('orders');
+            setSeenOrderIds((prev) => Array.from(
+              new Set([...prev, ...orders.filter((order) => order.status === 'pending').map((order) => order.id)])
+            ));
+          }}
+        />
 
         <main className="flex-1 overflow-auto">
           {/* ── DASHBOARD ── */}
@@ -1275,15 +1309,22 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
                   <thead className="bg-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-400">
-                    <tr>{['Client', 'Articles', 'Total', 'Statut', 'Date', ''].map(h => <th key={h} className="px-6 py-4">{h}</th>)}</tr>
+                    <tr>{['Client', 'Articles', 'Total', 'Statut', 'Date / Heure', ''].map(h => <th key={h} className="px-6 py-4">{h}</th>)}</tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {orders.length === 0 ? (
                       <tr><td colSpan={6} className="p-16 text-center text-gray-300 text-sm">Aucune commande active</td></tr>
                     ) : orders.map((o) => (
-                      <tr key={o.id} className="hover:bg-gray-50/30 transition-colors">
+                      <tr key={o.id} className={`hover:bg-gray-50/30 transition-colors ${!seenOrderIds.includes(o.id) && o.status === 'pending' ? 'bg-[#D4AF37]/10' : ''}`}>
                         <td className="px-6 py-4">
-                          <div className="font-bold text-sm text-stone-900">{o.customer_name}</div>
+                          <div className="flex items-center gap-2">
+                            <div className="font-bold text-sm text-stone-900">{o.customer_name}</div>
+                            {!seenOrderIds.includes(o.id) && o.status === 'pending' && (
+                              <span className="inline-flex items-center rounded-full bg-[#D4AF37]/80 px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.18em] text-black">
+                                Nouveau
+                              </span>
+                            )}
+                          </div>
                           <div className="text-xs text-gray-400">{o.customer_email}</div>
                         </td>
                         <td className="px-6 py-4">
@@ -1305,7 +1346,12 @@ export default function AdminDashboard() {
                             <option value="cancelled">Annulée</option>
                           </select>
                         </td>
-                        <td className="px-6 py-4 text-xs text-gray-400">{new Date(o.created_at).toLocaleDateString("fr-FR")}</td>
+                        <td className="px-6 py-4 text-xs text-gray-400">
+                          <div>{new Date(o.created_at).toLocaleDateString('fr-FR')}</div>
+                          <div className="text-[11px] text-gray-500">
+                            {new Date(o.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                          </div>
+                        </td>
                         <td className="px-6 py-4 text-right">
                           <Trash2 size={14} className="text-gray-200 hover:text-red-500 cursor-pointer transition-colors" onClick={() => deleteOrder(o)} />
                         </td>
