@@ -41,6 +41,11 @@ type Order = {
   id: string;
   customer_name: string;
   customer_email: string;
+  phone?: string;
+  country?: string;
+  city?: string;
+  quartier?: string;
+  street?: string;
   items: any;
   total_amount: number;
   status: string;
@@ -298,6 +303,12 @@ function DashboardPage({
     .filter(o => o.status === 'completed')
     .reduce((sum, o) => sum + (o.total_amount || 0), 0);
 
+  const formatRevenue = (amount: number) => {
+    if (amount <= 0) return '—';
+    if (amount >= 1_000_000) return `${(amount / 1_000_000).toFixed(1)}M`;
+    return `${amount.toLocaleString('fr-FR')}`;
+  };
+
   const parseItems = (items: any) => {
     if (Array.isArray(items)) return items;
     if (typeof items === 'string') { try { return JSON.parse(items); } catch { return []; } }
@@ -333,7 +344,7 @@ function DashboardPage({
         <StatCard label="Total clients" value={customerCount} sub="distinct customers" color="gold" />
         <StatCard label="Produits actifs" value={products.filter(p => p.is_available).length} sub={`sur ${products.length} au total`} color="blue" />
         <StatCard label="Commandes" value={orders.length} sub={`${orders.filter(o => o.status === 'pending').length} en attente`} color="green" />
-        <StatCard label="Revenus (FCFA)" value={totalRevenue > 0 ? `${(totalRevenue / 1_000_000).toFixed(1)}M` : '—'} sub="commandes terminées" color="purple" />
+        <StatCard label="Revenus (FCFA)" value={formatRevenue(totalRevenue)} sub="commandes terminées" color="purple" />
       </div>
 
       {/* Charts */}
@@ -450,20 +461,17 @@ function AdminsPage() {
     setCreating(true);
     setMessage(null);
     try {
-      // 1. Créer le compte Supabase Auth
       const { error: signUpError } = await supabase.auth.signUp({
         email: form.email,
         password: form.password,
       });
       if (signUpError) throw signUpError;
 
-      // 2. Insérer dans la table admins
       const { error: insertError } = await supabase
         .from('admins')
         .insert([{ email: form.email }]);
       if (insertError) throw insertError;
 
-      // 3. Insérer dans customers aussi
       await supabase.from('customers').upsert([{
         email: form.email,
         customer_name: form.name || form.email,
@@ -1031,6 +1039,35 @@ export default function AdminDashboard() {
     return () => { mounted = false; };
   }, [fetchData]);
 
+  // ============================================================
+  // HELPER : mise à jour revenue (mutualisée)
+  // ============================================================
+  const updateRevenue = async (date: Date, delta: number, orderCountDelta: number) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    const { data: existing } = await supabase
+      .from("revenue")
+      .select("*")
+      .eq("year", year)
+      .eq("month", month)
+      .limit(1)
+      .maybeSingle();
+
+    if (existing) {
+      await supabase.from("revenue").update({
+        amount: Math.max(Number(existing.amount || 0) + delta, 0),
+        orders_count: Math.max(Number(existing.orders_count || 0) + orderCountDelta, 0),
+      }).eq("id", existing.id);
+    } else if (delta > 0) {
+      // On ne crée une ligne que si on ajoute du revenu
+      await supabase.from("revenue").insert([{ year, month, amount: delta, orders_count: orderCountDelta }]);
+    }
+  };
+
+  // ============================================================
+  // SIMULATE ORDERS
+  // ============================================================
   const simulateOrders = async (count = 5) => {
     if (count < 1) { setSimulateMessage('Le nombre de commandes doit être au moins 1.'); return; }
     if (!window.confirm(`Confirmer la simulation de ${count} commandes ?`)) return;
@@ -1071,16 +1108,14 @@ export default function AdminDashboard() {
           if (fallbackError) throw fallbackError;
         }
         try { await supabase.from('customers').upsert([{ email: fakeEmail, customer_name: fakeName }], { onConflict: 'email' }); } catch {}
+
+        // ✅ Mise à jour revenue via le helper mutualisé (cast Number() garanti)
         try {
-          const now = new Date();
-          const year = now.getFullYear(); const month = now.getMonth() + 1;
-          const { data: existing } = await supabase.from('revenue').select('*').eq('year', year).eq('month', month).limit(1).maybeSingle();
-          if (existing) {
-            await supabase.from('revenue').update({ amount: Number(existing.amount || 0) + Number(total || 0), orders_count: Number(existing.orders_count || 0) + 1 }).eq('id', existing.id);
-          } else {
-            await supabase.from('revenue').insert([{ year, month, amount: Number(total || 0), orders_count: 1 }]);
-          }
-        } catch {}
+          await updateRevenue(new Date(), Number(total), 1);
+        } catch (err) {
+          console.error("Erreur revenue simulate:", err);
+        }
+
         created += 1;
       }
       setSimulateMessage(`Simulation terminée : ${created} commande(s) créées.`);
@@ -1123,22 +1158,78 @@ export default function AdminDashboard() {
     setProducts(prev => prev.filter(p => p.id !== id));
   };
 
+  // ============================================================
+  // UPDATE ORDER STATUS
+  // ============================================================
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
+    const order = orders.find(o => o.id === orderId);
+    const previousStatus = order?.status;
+
     await supabase.from("orders").update({ status: newStatus }).eq("id", orderId);
     setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
+
+    if (!order || previousStatus === newStatus) return;
+
+    const becameCompleted = newStatus === "completed" && previousStatus !== "completed";
+    const leftCompleted = previousStatus === "completed" && newStatus !== "completed";
+    if (!becameCompleted && !leftCompleted) return;
+
+    try {
+      const orderDate = order.created_at ? new Date(order.created_at) : new Date();
+      const amount = Number(order.total_amount || 0);
+      const delta = becameCompleted ? amount : -amount;
+      const countDelta = becameCompleted ? 1 : -1;
+
+      // ✅ Utilise le helper mutualisé
+      await updateRevenue(orderDate, delta, countDelta);
+      await fetchData();
+    } catch (err) {
+      console.error("Erreur mise à jour du revenu :", err);
+    }
   };
 
+  // ============================================================
+  // DELETE / ARCHIVE ORDER  ← FIX PRINCIPAL
+  // ============================================================
   const deleteOrder = async (order: Order) => {
     if (!window.confirm("Archiver cette commande ?")) return;
     try {
-      await supabase.from("orders_history").insert([{
-        original_order_id: order.id, customer_name: order.customer_name,
-        customer_email: order.customer_email, items: order.items,
-        total_amount: order.total_amount, status: order.status, created_at: order.created_at,
+      // 1. Insérer dans l'historique
+      const { error: historyError } = await supabase.from("orders_history").insert([{
+        original_order_id: order.id,
+        customer_name: order.customer_name,
+        customer_email: order.customer_email,
+        phone: order.phone,
+        country: order.country,
+        city: order.city,
+        quartier: order.quartier,
+        street: order.street,
+        items: order.items,
+        total_amount: order.total_amount,
+        status: order.status,
+        created_at: order.created_at,
       }]);
-      await supabase.from("orders").delete().eq("id", order.id);
+
+      if (historyError) throw historyError;
+
+      // 2. Supprimer de orders
+      const { error: deleteError } = await supabase.from("orders").delete().eq("id", order.id);
+      if (deleteError) throw deleteError;
+
+      // 3. ✅ Si la commande était "completed", soustraire son montant du revenue
+      if (order.status === "completed") {
+        try {
+          const orderDate = order.created_at ? new Date(order.created_at) : new Date();
+          const amount = Number(order.total_amount || 0);
+          await updateRevenue(orderDate, -amount, -1);
+        } catch (err) {
+          console.error("Erreur mise à jour revenue lors de l'archivage :", err);
+        }
+      }
+
       fetchData();
     } catch (err: any) {
+      console.error("Erreur archivage :", err);
       alert("Erreur archivage : " + err.message);
     }
   };
@@ -1305,6 +1396,7 @@ export default function AdminDashboard() {
               <div className="mb-5">
                 <h2 className="text-lg font-black text-stone-900">Commandes</h2>
                 <p className="text-xs text-gray-400 mt-0.5">{orders.filter(o => o.status === 'pending').length} en attente · {orders.filter(o => o.status === 'completed').length} terminées</p>
+                <p className="text-[10px] text-stone-500 mt-2 max-w-2xl">Une commande "en attente" est une commande client validée côté boutique et à traiter manuellement par l'équipe admin.</p>
               </div>
               <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
@@ -1326,6 +1418,16 @@ export default function AdminDashboard() {
                             )}
                           </div>
                           <div className="text-xs text-gray-400">{o.customer_email}</div>
+                          {o.phone ? (
+                            <div className="text-xs text-gray-400">{o.phone}</div>
+                          ) : null}
+                          {o.country || o.city || o.quartier || o.street ? (
+                            <div className="mt-2 text-[11px] text-stone-600">
+                              <span className="font-semibold text-stone-900">Adresse :</span>
+                              <span className="block">{o.street || '—'}{o.street && o.quartier ? ', ' : ''}{o.quartier || ''}</span>
+                              <span className="block">{o.city || '—'}{o.city && o.country ? ', ' : ''}{o.country || ''}</span>
+                            </div>
+                          ) : null}
                         </td>
                         <td className="px-6 py-4">
                           {parseItems(o.items).map((item: any, i: number) => (
@@ -1383,6 +1485,16 @@ export default function AdminDashboard() {
                         <td className="px-6 py-4">
                           <div className="font-bold text-sm text-stone-900">{h.customer_name}</div>
                           <div className="text-xs text-gray-400">{h.customer_email}</div>
+                          {h.phone ? (
+                            <div className="text-xs text-gray-400">{h.phone}</div>
+                          ) : null}
+                          {h.country || h.city || h.quartier || h.street ? (
+                            <div className="mt-2 text-[11px] text-stone-600">
+                              <span className="font-semibold text-stone-900">Adresse :</span>
+                              <span className="block">{h.street || '—'}{h.street && h.quartier ? ', ' : ''}{h.quartier || ''}</span>
+                              <span className="block">{h.city || '—'}{h.city && h.country ? ', ' : ''}{h.country || ''}</span>
+                            </div>
+                          ) : null}
                         </td>
                         <td className="px-6 py-4">
                           {parseItems(h.items).map((item: any, i: number) => (

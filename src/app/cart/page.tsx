@@ -14,6 +14,10 @@ export default function CartPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [district, setDistrict] = useState('');
+  const [street, setStreet] = useState('');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutMessage, setCheckoutMessage] = useState<string | null>(null);
   const shipping = 0; // Livraison offerte
@@ -34,6 +38,11 @@ export default function CartPage() {
       return;
     }
 
+    if (!country.trim() || !city.trim() || !district.trim() || !street.trim()) {
+      setCheckoutMessage('Veuillez renseigner votre adresse complète (pays, ville, quartier et rue) pour la livraison.');
+      return;
+    }
+
     setCheckoutLoading(true);
     setCheckoutMessage(null);
 
@@ -49,9 +58,14 @@ export default function CartPage() {
       const { error: orderError } = await supabase.from('orders').insert([{
         customer_name: name,
         customer_email: email,
+        phone: phone,
+        country: country,
+        city: city,
+        quartier: district,
+        street: street,
         items: orderItems,
         total_amount: total,
-        status: 'completed',
+        status: 'pending',
       }]);
 
       if (orderError) {
@@ -89,29 +103,18 @@ export default function CartPage() {
         // ignore if schema differs
       }
 
-      // Update monthly revenue row (create or increment)
-      try {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth() + 1;
-
-        const { data: existing } = await supabase.from('revenue').select('*').eq('year', year).eq('month', month).limit(1).maybeSingle();
-        if (existing) {
-          await supabase.from('revenue').update({
-            amount: Number(existing.amount || 0) + Number(total || 0),
-            orders_count: Number(existing.orders_count || 0) + 1,
-          }).eq('id', existing.id);
-        } else {
-          await supabase.from('revenue').insert([{ year, month, amount: Number(total || 0), orders_count: 1 }]);
-        }
-      } catch (e) {
-        // ignore revenue errors
-      }
+      // Note : le revenu (table "revenue") n'est plus incrémenté ici.
+      // La commande est créée en "pending" ; le revenu sera comptabilisé
+      // côté admin uniquement quand le statut passera à "completed".
 
       clearCart();
       setName('');
       setEmail('');
       setPhone('');
+      setCountry('');
+      setCity('');
+      setDistrict('');
+      setStreet('');
       setCheckoutMessage('Commande créée avec succès !');
     } catch (error: any) {
       setCheckoutMessage(error?.message ?? 'Échec de la validation.');
@@ -206,10 +209,7 @@ export default function CartPage() {
                 <span>Sous-total</span>
                 <span className="text-stone-900">{subtotal.toLocaleString('fr-FR')} €</span>
               </div>
-              <div className="flex justify-between">
-                <span>Livraison standard</span>
-                <span className="text-stone-900">{shipping === 0 ? 'Offerte' : `${shipping} €`}</span>
-              </div>
+              
             </div>
 
             <div className="flex justify-between items-center text-xl text-stone-900 border-t border-stone-200 pt-6 mb-8">
@@ -239,6 +239,37 @@ export default function CartPage() {
                 onChange={e => setPhone(e.target.value)}
                 className="w-full border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900"
                 placeholder="+33 6 12 34 56 78"
+              />
+
+              <p className="text-xs uppercase tracking-[0.2em] text-stone-400 pt-4 border-t border-stone-100">Adresse de livraison</p>
+
+              <label className="block text-xs uppercase tracking-[0.2em] text-stone-400">Pays</label>
+              <input
+                value={country}
+                onChange={e => setCountry(e.target.value)}
+                className="w-full border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900"
+                placeholder="Côte d'Ivoire"
+              />
+              <label className="block text-xs uppercase tracking-[0.2em] text-stone-400">Ville</label>
+              <input
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                className="w-full border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900"
+                placeholder="Abidjan"
+              />
+              <label className="block text-xs uppercase tracking-[0.2em] text-stone-400">Quartier</label>
+              <input
+                value={district}
+                onChange={e => setDistrict(e.target.value)}
+                className="w-full border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900"
+                placeholder="Cocody"
+              />
+              <label className="block text-xs uppercase tracking-[0.2em] text-stone-400">Rue / Adresse</label>
+              <input
+                value={street}
+                onChange={e => setStreet(e.target.value)}
+                className="w-full border border-stone-200 bg-white px-4 py-3 text-sm text-stone-900"
+                placeholder="Rue des Jardins, Lot 12"
               />
             </div>
 
